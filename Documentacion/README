@@ -1,36 +1,38 @@
-# Infiltrados
+# Documentación — Infiltrados
 
-Infiltrados es un proyecto comunitario de CuberGamer que centraliza la documentación y recursos relacionados con el diseño y desarrollo del juego/prototipo "Infiltrados". Este repositorio contiene apuntes, entregables, especificaciones y material gráfico destinados a guiar a desarrolladores, diseñadores y colaboradores durante las distintas fases del proyecto.
+Bienvenido a la carpeta Documentacion del proyecto "Infiltrados". Aquí se centraliza la documentación, entregables y materiales de diseño del juego/prototipo.
 
 ## Descripción
 
-El propósito de este repositorio es reunir toda la información necesaria para entender la visión del producto, sus mecánicas principales, las decisiones de diseño y los recursos artísticos. Aquí encontrarás documentación de actividades, definiciones del sistema de diseño, diagramas y guías que sirven como referencia para el desarrollo y las pruebas.
+Esta carpeta contiene los documentos de actividades y materiales académicos que describen la visión del producto, decisiones de diseño y prototipos. Mantén los archivos en español y actualiza este README cuando se añadan o cambien documentos.
 
-## Contenido principal
+## Contenido
 
-- Documentacion/: Material de diseño y documentación (readmes, PDFs y entregables académicos).
-- Recursos gráficos: imágenes y material visual en Recursos graficos/Docs (ver carpeta Recursos graficos/Docs para diseños y assets).
-- src/ (si existe): Código fuente del juego o prototipo.
-- assets/ (si existe): Recursos multimedia (sprites, audio, texturas).
+A continuación se listan los documentos disponibles (PDF):
 
-> Nota: Adapta la estructura anterior en función del contenido real del repositorio.
+- [Actividad 11 - Iteración y Adaptación del Proyecto](https://github.com/CuberGamer/Infiltrados/blob/main/Documentacion/Actividad%2011%20-%20Iteraci%C3%B3n%20y%20Adaptaci%C3%B3n%20del%20Proyecto.pdf)
+- [Actividad 12 - Documento de Definición del Producto](https://github.com/CuberGamer/Infiltrados/blob/main/Documentacion/Actividad%2012%20-%20Documento%20de%20Definici%C3%B3n%20del%20Producto.pdf)
+- [Actividad 13 - Diseño del PMV](https://github.com/CuberGamer/Infiltrados/blob/main/Documentacion/Actividad%2013%20-%20Dise%C3%B1o%20del%20PMV.pdf)
+- [Actividad 14 – Organización Scrum del Proyecto](https://github.com/CuberGamer/Infiltrados/blob/main/Documentacion/Actividad%2014%20%E2%80%93%20Organizaci%C3%B3n%20Scrum%20del%20Proyecto.pdf)
+- [Actividad 15 – Planificación de Sprints](https://github.com/CuberGamer/Infiltrados/blob/main/Documentacion/Actividad%2015%20%E2%80%93%20Planificaci%C3%B3n%20de%20Sprints.pdf)
+- [Actividad 16 – Implementación del Sistema de Seguimiento del Proyecto](https://github.com/CuberGamer/Infiltrados/blob/main/Documentacion/Actividad%2016%20%E2%80%93%20Implementaci%C3%B3n%20del%20Sistema%20de%20Seguimiento%20del%20Proyecto.pdf)
+- [Actividad 17 - Prototipo de baja fidelidad](https://github.com/CuberGamer/Infiltrados/blob/main/Documentacion/Actividad%2017%20-%20Prototipo%20de%20baja%20fidelidad.pdf)
+- [Actividad 18 – Definición del Sistema de Diseño del Producto](https://github.com/CuberGamer/Infiltrados/blob/main/Documentacion/Actividad%2018%20%E2%80%93%20Definici%C3%B3n%20del%20Sistema%20de%20Dise%C3%B1o%20del%20Producto.pdf)
 
-## Cómo empezar
+> Nota: Si añades nuevos documentos, agrega una línea aquí con el enlace y una breve descripción.
 
-1. Revisa los documentos dentro de Documentacion/ para comprender la visión del producto y las mecánicas de juego.
-2. Consulta la carpeta Recursos graficos/Docs para obtener los materiales visuales y guías de estilo.
-3. Si hay código (por ejemplo `src/`), busca un README en esa carpeta con instrucciones de instalación y ejecución.
+## Cómo usar estos documentos
+
+1. Empieza por los documentos de definición (Actividad 12 y 13) para entender la visión y el PMV.
+2. Revisa la planificación y organización (Actividades 14 y 15) para ver la estructura de trabajo propuesta.
+3. Consulta los prototipos y el sistema de diseño (Actividades 17 y 18) para guía visual y de UI/UX.
 
 ## Contribuir
 
-- Abre un issue para proponer mejoras, corregir errores en la documentación o solicitar recursos adicionales.
-- Crea una rama nueva para tus cambios y envía un pull request describiendo claramente las modificaciones.
-- Mantén la documentación en español y, si agregas traducciones, indícalo en el archivo correspondiente.
+- Para corregir o mejorar documentos, abre un issue describiendo el cambio.
+- Crea una rama con tus modificaciones y envía un pull request con la descripción de cambios.
 
-## Licencia
+## Licencia y contacto
 
-Añade un archivo LICENSE en la raíz del repositorio indicando la licencia escogida (por ejemplo MIT) si aún no existe.
-
-## Contacto
-
-Para dudas o coordinación, abre un issue o contacta al propietario del repositorio.
+- Comprueba el archivo LICENSE en la raíz del repositorio para la licencia del proyecto.
+- Para dudas, abre un issue o contacta al propietario del repositorio.
