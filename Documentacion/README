@@ -1,1 +1,36 @@
-Documentacio
+# Infiltrados
+
+Infiltrados es un proyecto comunitario de CuberGamer que centraliza la documentación y recursos relacionados con el diseño y desarrollo del juego/prototipo "Infiltrados". Este repositorio contiene apuntes, entregables, especificaciones y material gráfico destinados a guiar a desarrolladores, diseñadores y colaboradores durante las distintas fases del proyecto.
+
+## Descripción
+
+El propósito de este repositorio es reunir toda la información necesaria para entender la visión del producto, sus mecánicas principales, las decisiones de diseño y los recursos artísticos. Aquí encontrarás documentación de actividades, definiciones del sistema de diseño, diagramas y guías que sirven como referencia para el desarrollo y las pruebas.
+
+## Contenido principal
+
+- Documentacion/: Material de diseño y documentación (readmes, PDFs y entregables académicos).
+- Recursos gráficos: imágenes y material visual en Recursos graficos/Docs (ver carpeta Recursos graficos/Docs para diseños y assets).
+- src/ (si existe): Código fuente del juego o prototipo.
+- assets/ (si existe): Recursos multimedia (sprites, audio, texturas).
+
+> Nota: Adapta la estructura anterior en función del contenido real del repositorio.
+
+## Cómo empezar
+
+1. Revisa los documentos dentro de Documentacion/ para comprender la visión del producto y las mecánicas de juego.
+2. Consulta la carpeta Recursos graficos/Docs para obtener los materiales visuales y guías de estilo.
+3. Si hay código (por ejemplo `src/`), busca un README en esa carpeta con instrucciones de instalación y ejecución.
+
+## Contribuir
+
+- Abre un issue para proponer mejoras, corregir errores en la documentación o solicitar recursos adicionales.
+- Crea una rama nueva para tus cambios y envía un pull request describiendo claramente las modificaciones.
+- Mantén la documentación en español y, si agregas traducciones, indícalo en el archivo correspondiente.
+
+## Licencia
+
+Añade un archivo LICENSE en la raíz del repositorio indicando la licencia escogida (por ejemplo MIT) si aún no existe.
+
+## Contacto
+
+Para dudas o coordinación, abre un issue o contacta al propietario del repositorio.
