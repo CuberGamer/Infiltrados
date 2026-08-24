@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Infiltrado - Mapa e Inventario Funcionales</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body {
+      background-color: #0d0d0d;
+      background-image: radial-gradient(circle at 50% 50%, #1c1c24 0%, #050508 100%);
+      color: #fff;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #game-wrapper {
+      position: relative;
+      width: 800px;
+      height: 450px;
+      background-color: #3d522b;
+      border: 4px solid #2a1a08;
+      border-radius: 4px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.85);
+      overflow: hidden;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+
+    /* Modal Bando */
+    #bando-modal {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 15, 20, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+
+    .btn-bando {
+      padding: 12px 30px;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      border: 3px solid #fff;
+      cursor: pointer;
+      margin: 10px;
+      width: 220px;
+      text-transform: uppercase;
+      box-shadow: 3px 3px 0px #000;
+    }
+    .federal { background-color: #8b0000; }
+    .unitario { background-color: #1d4ed8; }
+
+    /* TABLA DE MISIONES E INDICACIONES */
+    #missions-scroll {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 210px;
+      background-color: #f3e5ab;
+      border: 3px solid #78350f;
+      border-radius: 4px;
+      padding: 8px 10px;
+      color: #3b1f0d;
+      box-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+      z-index: 10;
+    }
+
+    #missions-scroll h3 {
+      margin: 0 0 6px 0;
+      font-size: 12px;
+      text-align: center;
+      border-bottom: 2px dashed #a16207;
+      padding-bottom: 2px;
+    }
+
+    .mission-item {
+      font-size: 9px;
+      font-weight: bold;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .mission-dest {
+      color: #9a3412;
+      font-size: 8px;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* MINIMAPA */
+    #minimap-container {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 110px;
+      height: 95px;
+      background: #d97706;
+      border: 3px solid #78350f;
+      cursor: pointer;
+      z-index: 10;
+      padding: 3px;
+    }
+
+    #minimap-inner {
+      width: 100%;
+      height: 100%;
+      background: #e2b87f;
+      border: 1px solid #78350f;
+      position: relative;
+    }
+
+    #minimap-hint {
+      position: absolute;
+      bottom: -18px;
+      right: 0;
+      font-size: 8px;
+      background: #000;
+      color: #fff;
+      padding: 1px 4px;
+      border-radius: 2px;
+    }
+
+    /* MAPA AMPLIADO FUNCIONAL (ESTILO IMAGEN) */
+    #map-modal {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 80;
+    }
+
+    #map-frame {
+      position: relative;
+      width: 360px;
+      height: 360px;
+      background-color: #d97706;
+      border: 12px solid #78350f;
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(0,0,0,0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #map-canvas-bg {
+      width: 320px;
+      height: 320px;
+      background: #e5c390;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+      border: 3px solid #451a03;
+    }
+
+    .map-tag {
+      position: absolute;
+      background: #18181b;
+      color: #fff;
+      border: 1px solid #71717a;
+      font-size: 8px;
+      font-weight: bold;
+      padding: 2px 4px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+
+    .map-tag::before {
+      content: "📍";
+      font-size: 8px;
+    }
+
+    #close-map-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 32px;
+      height: 32px;
+      background: #fff;
+      border: 3px solid #451a03;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 16px;
+      color: #000;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 90;
+    }
+
+    /* BARRA DE ESTADO */
+    #status-bar-container {
+      position: absolute;
+      bottom: 15px;
+      left: 10px;
+      display: flex;
+      align-items: center;
+      z-index: 10;
+    }
+
+    #status-icon {
+      width: 26px;
+      height: 26px;
+      background-color: #f97316;
+      border: 2px solid #fff;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      z-index: 11;
+    }
+
+    #status-bar {
+      width: 150px;
+      height: 14px;
+      background-color: #374151;
+      border: 2px solid #fff;
+      margin-left: -4px;
+      border-radius: 0 6px 6px 0;
+      overflow: hidden;
+    }
+
+    #status-fill {
+      width: 25%;
+      height: 100%;
+      background-color: #facc15;
+      transition: width 0.4s;
+    }
+
+    /* INVENTARIO CIRCULAR FUNCIONAL */
+    #inventory-circle {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 110px;
+      height: 110px;
+      background-color: #e2b87f;
+      border: 4px solid #78350f;
+      border-radius: 50%;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    #inventory-inner {
+      width: 75px;
+      height: 75px;
+      background-color: #2e1065;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .inv-slot {
+      position: absolute;
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .inv-slot:hover { transform: scale(1.3); }
+
+    #slot-key { top: 22px; left: 12px; }
+    #slot-letter { bottom: 6px; left: 28px; display: none; }
+    #slot-berry { top: 22px; right: 10px; }
+
+    /* POPUP INSPECCIÓN DE INVENTARIO */
+    #item-inspect-modal {
+      position: absolute;
+      bottom: 130px;
+      right: 10px;
+      width: 200px;
+      background: #fef3c7;
+      border: 3px solid #78350f;
+      border-radius: 6px;
+      padding: 8px;
+      color: #451a03;
+      font-size: 10px;
+      display: none;
+      z-index: 30;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+    }
+
+    /* DIÁLOGOS */
+    #dialogue-box {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 480px;
+      background-color: #fef3c7;
+      border: 4px solid #451a03;
+      border-radius: 6px;
+      padding: 10px 14px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      z-index: 20;
+    }
+
+    #dialogue-text {
+      color: #451a03;
+      font-size: 11px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    #dialogue-options {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-pill {
+      background: linear-gradient(180deg, #facc15 0%, #eab308 100%);
+      color: #451a03;
+      border: 2px solid #78350f;
+      border-radius: 15px;
+      padding: 6px 12px;
+      font-family: inherit;
+      font-size: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="game-wrapper">
+    <canvas id="gameCanvas" width="400" height="225"></canvas>
+
+    <!-- Selección de Bando -->
+    <div id="bando-modal">
+      <h2>INFILTRADO: ELECCIÓN DE BANDO</h2>
+      <button class="btn-bando federal" onclick="iniciarJuego('Federal')">FEDERAL</button>
+      <button class="btn-bando unitario" onclick="iniciarJuego('Unitario')">UNITARIO</button>
+    </div>
+
+    <!-- Tabla de Misiones -->
+    <div id="missions-scroll">
+      <h3>MISIONES Y DESTINO</h3>
+      <div id="mission-content">
+        <div class="mission-item">
+          <span id="mision-titulo">1. HABLAR CON EL OFICIAL</span>
+          <span class="mission-dest" id="mision-guia">📍 Ir a: Plaza Mayor (Norte)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Minimapa Clicable -->
+    <div id="minimap-container" onclick="toggleMapa(true)">
+      <div id="minimap-inner">
+        <span style="position: absolute; top: 2px; left: 20px; font-size: 6px; font-weight: bold; color: #451a03;">PLAZA MAYOR</span>
+        <span style="position: absolute; bottom: 4px; left: 2px; font-size: 6px; font-weight: bold; color: #451a03;">CONVENTO</span>
+      </div>
+      <div id="minimap-hint">[M] MAPA</div>
+    </div>
+
+    <!-- Modal del Mapa Ampliado (Fiel a la imagen) -->
+    <div id="map-modal">
+      <button id="close-map-btn" onclick="toggleMapa(false)">X</button>
+      <div id="map-frame">
+        <div id="map-canvas-bg">
+          <!-- Etiquetas de Ubicación estilo retro -->
+          <div class="map-tag" style="top: 25px; left: 110px;">PLAZA MAYOR</div>
+          <div class="map-tag" style="top: 130px; left: 15px;">RETIRO</div>
+          <div class="map-tag" style="top: 130px; right: 15px;">PUERTO</div>
+          <div class="map-tag" style="bottom: 75px; left: 40px;">CONVENTO</div>
+          <div class="map-tag" style="bottom: 45px; right: 50px;">SUR</div>
+          
+          <!-- Indicador Jugador -->
+          <div id="map-player-pin" style="position: absolute; color: red; font-size: 14px; font-weight: bold; transition: all 0.3s;">📍</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barra de Estado -->
+    <div id="status-bar-container">
+      <div id="status-icon">👤</div>
+      <div id="status-bar">
+        <div id="status-fill"></div>
+      </div>
+    </div>
+
+    <!-- Inventario Circular Interactivo -->
+    <div id="inventory-circle" onclick="toggleInventarioInfo()">
+      <div id="inventory-inner">
+        <span class="inv-slot" id="slot-key" onclick="inspeccionarItem(event, 'Llave Dorada', 'Abre pasadizos antiguos en el Sur.')">🔑</span>
+        <span class="inv-slot" id="slot-letter" onclick="inspeccionarItem(event, 'Carta Confidencial', 'Documento para el Informante del Convento.')">📄</span>
+        <span class="inv-slot" id="slot-berry" onclick="inspeccionarItem(event, 'Suministros', 'Fruta recolectada en el camino.')">🍓</span>
+      </div>
+    </div>
+
+    <!-- Cuadro de Inspección de Inventario -->
+    <div id="item-inspect-modal">
+      <strong id="inspect-title">Objeto</strong>
+      <p id="inspect-desc" style="margin: 4px 0 0 0;"></p>
+    </div>
+
+    <!-- Cuadro de Diálogo -->
+    <div id="dialogue-box">
+      <div id="dialogue-text">...</div>
+      <div id="dialogue-options"></div>
+    </div>
+  </div>
+
+<script>
+  const canvas = document.getElementById("gameCanvas");
+  const ctx = canvas.getContext("2d");
+
+  let bandoJugador = "";
+  let estadoJuego = "INICIO";
+  let mapaAbierto = false;
+
+  // Estado del flujo de misiones
+  // 1: Ir con Oficial | 2: Responder Trivia | 3: Entregar Carta a Informante | 4: Completado
+  let pasoMision = 1;
+
+  const keys = {};
+  const jugador = { x: 190, y: 110, ancho: 12, alto: 18, velocidad: 1.2 };
+
+  const npcOficial = { x: 162, y: 40, ancho: 12, alto: 18, cerca: false };
+  const npcInformante = { x: 50, y: 185, ancho: 12, alto: 18, cerca: false, tipo: "chaleco" };
+  const npcsAmbiente = [
+    { x: 270, y: 75, ancho: 12, alto: 18, tipo: "chaleco" },
+    { x: 265, y: 185, ancho: 12, alto: 18, tipo: "abrigo" }
+  ];
+
+  const obstaculosEstructura = [
+    { x: 120, y: 0, ancho: 160, alto: 38 },
+    { x: 248, y: 65, ancho: 7, alto: 25 }
+  ];
+
+  const secuenciaDialogosOficial = [
+    "¡ALTO! ¿QUIÉN ANDA AHÍ EN LA PLAZA MAYOR?",
+    "SI DICES SER DE LOS NUESTROS, DEMUÉSTRALO.",
+    "PREGUNTA: ¿CON QUÉ COLOR SE IDENTIFICA AL PARTIDO FEDERAL?"
+  ];
+  let indiceDialogo = 0;
+
+  window.addEventListener("keydown", e => {
+    keys[e.key.toLowerCase()] = true;
+
+    if (e.key.toLowerCase() === "m") toggleMapa(!mapaAbierto);
+
+    if (e.key.toLowerCase() === "e" && !mapaAbierto) {
+      if (estadoJuego === "EXPLORACION") {
+        if (npcOficial.cerca && pasoMision <= 2) {
+          iniciarConversacionOficial();
+        } else if (npcInformante.cerca && pasoMision === 3) {
+          entregarCartaInformante();
+        }
+      } else if (estadoJuego === "DIALOGO") {
+        avanzarDialogo();
+      }
+    }
+  });
+
+  window.addEventListener("keyup", e => keys[e.key.toLowerCase()] = false);
+
+  function iniciarJuego(bando) {
+    bandoJugador = bando;
+    document.getElementById("bando-modal").style.display = "none";
+    estadoJuego = "EXPLORACION";
+    actualizarTablaMisiones();
+  }
+
+  function toggleMapa(forzar) {
+    mapaAbierto = (forzar !== undefined) ? forzar : !mapaAbierto;
+    document.getElementById("map-modal").style.display = mapaAbierto ? "flex" : "none";
+    
+    if (mapaAbierto) {
+      // Actualizar posición del pin en el mapa
+      const pin = document.getElementById("map-player-pin");
+      let relX = (jugador.x / canvas.width) * 260 + 30;
+      let relY = (jugador.y / canvas.height) * 260 + 30;
+      pin.style.left = relX + "px";
+      pin.style.top = relY + "px";
+    }
+  }
+
+  function actualizarTablaMisiones() {
+    const titulo = document.getElementById("mision-titulo");
+    const guia = document.getElementById("mision-guia");
+    const statusFill = document.getElementById("status-fill");
+
+    if (pasoMision === 1) {
+      titulo.innerText = "1. HABLAR CON EL OFICIAL";
+      guia.innerText = "📍 Dirígete a: Plaza Mayor (Norte) e interactúa [E]";
+      statusFill.style.width = "25%";
+    } else if (pasoMision === 2) {
+      titulo.innerText = "2. DEMOSTRAR LEALTAD";
+      guia.innerText = "📍 Responde la trivia del Oficial";
+      statusFill.style.width = "50%";
+    } else if (pasoMision === 3) {
+      titulo.innerText = "3. LLEVAR CARTA AL CONVENTO";
+      guia.innerText = "📍 Dirígete a: Convento (Suroeste) y habla con el Informante";
+      statusFill.style.width = "75%";
+      document.getElementById("slot-letter").style.display = "block"; // Carta visible en inventario
+    } else if (pasoMision === 4) {
+      titulo.innerText = "✔ MISIÓN COMPLETADA";
+      guia.innerText = "📍 Has entregado el mensaje secreto con éxito.";
+      statusFill.style.width = "100%";
+    }
+  }
+
+  function hayColision(nx, ny) {
+    const boxJugador = { x: nx, y: ny, ancho: jugador.ancho, alto: jugador.alto };
+    const solidos = [npcOficial, npcInformante, ...npcsAmbiente, ...obstaculosEstructura];
+
+    for (let obs of solidos) {
+      if (
+        boxJugador.x < obs.x + obs.ancho &&
+        boxJugador.x + boxJugador.ancho > obs.x &&
+        boxJugador.y < obs.y + obs.alto &&
+        boxJugador.y + boxJugador.alto > obs.y
+      ) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function actualizar() {
+    if (estadoJuego === "EXPLORACION" && !mapaAbierto) {
+      let nuevoX = jugador.x;
+      let nuevoY = jugador.y;
+
+      if (keys["w"] || keys["arrowup"]) nuevoY -= jugador.velocidad;
+      if (keys["s"] || keys["arrowdown"]) nuevoY += jugador.velocidad;
+      if (keys["a"] || keys["arrowleft"]) nuevoX -= jugador.velocidad;
+      if (keys["d"] || keys["arrowright"]) nuevoX += jugador.velocidad;
+
+      if (!hayColision(nuevoX, jugador.y)) {
+        jugador.x = Math.max(10, Math.min(canvas.width - 20, nuevoX));
+      }
+      if (!hayColision(jugador.x, nuevoY)) {
+        jugador.y = Math.max(10, Math.min(canvas.height - 25, nuevoY));
+      }
+
+      npcOficial.cerca = Math.hypot(jugador.x - npcOficial.x, jugador.y - npcOficial.y) < 24;
+      npcInformante.cerca = Math.hypot(jugador.x - npcInformante.x, jugador.y - npcInformante.y) < 24;
+    }
+  }
+
+  /* SISTEMA DE DIÁLOGOS E INTERACCIÓN */
+
+  function iniciarConversacionOficial() {
+    estadoJuego = "DIALOGO";
+    indiceDialogo = 0;
+    pasoMision = 2;
+    actualizarTablaMisiones();
+    mostrarPasoDialogo();
+    document.getElementById("dialogue-box").style.display = "flex";
+  }
+
+  function avanzarDialogo() {
+    if (indiceDialogo < secuenciaDialogosOficial.length - 1) {
+      indiceDialogo++;
+      mostrarPasoDialogo();
+    }
+  }
+
+  function mostrarPasoDialogo() {
+    const textoUI = document.getElementById("dialogue-text");
+    const opcionesUI = document.getElementById("dialogue-options");
+
+    textoUI.innerText = secuenciaDialogosOficial[indiceDialogo];
+    opcionesUI.innerHTML = "";
+
+    if (indiceDialogo === secuenciaDialogosOficial.length - 1) {
+      opcionesUI.innerHTML = `
+        <button class="btn-pill" onclick="responderTrivia(0)">EL COLOR ROJO PUNZÓ</button>
+        <button class="btn-pill" onclick="responderTrivia(1)">EL COLOR AZUL</button>
+      `;
+    } else {
+      opcionesUI.innerHTML = `<button class="btn-pill" onclick="avanzarDialogo()">CONTINUAR (E)</button>`;
+    }
+  }
+
+  function responderTrivia(opcion) {
+    const textoUI = document.getElementById("dialogue-text");
+    const opcionesUI = document.getElementById("dialogue-options");
+
+    if (opcion === 0) {
+      pasoMision = 3;
+      actualizarTablaMisiones();
+      textoUI.innerText = "¡CORRECTO! TOMA ESTA CARTA Y LLÉVALA DE INMEDIATO AL INFORMANTE EN EL CONVENTO.";
+    } else {
+      textoUI.innerText = "¡INCORRECTO! UN INFILTRADO... ¡GUARDIAS!";
+    }
+
+    opcionesUI.innerHTML = "";
+
+    setTimeout(() => {
+      document.getElementById("dialogue-box").style.display = "none";
+      estadoJuego = "EXPLORACION";
+    }, 3000);
+  }
+
+  function entregarCartaInformante() {
+    estadoJuego = "DIALOGO";
+    const box = document.getElementById("dialogue-box");
+    const textoUI = document.getElementById("dialogue-text");
+
+    box.style.display = "flex";
+    textoUI.innerText = "¡EXCELENTE TRABAJO! RECIBÍ LA CARTA SECRETA. MISIÓN CUMPLIDA.";
+    document.getElementById("dialogue-options").innerHTML = "";
+
+    pasoMision = 4;
+    actualizarTablaMisiones();
+
+    setTimeout(() => {
+      box.style.display = "none";
+      estadoJuego = "EXPLORACION";
+    }, 3500);
+  }
+
+  /* INVENTARIO INTERACTIVO */
+
+  function inspeccionarItem(event, titulo, desc) {
+    event.stopPropagation();
+    const modal = document.getElementById("item-inspect-modal");
+    document.getElementById("inspect-title").innerText = titulo;
+    document.getElementById("inspect-desc").innerText = desc;
+    modal.style.display = "block";
+
+    setTimeout(() => { modal.style.display = "none"; }, 3000);
+  }
+
+  function toggleInventarioInfo() {
+    inspeccionarItem({ stopPropagation: ()=>{} }, "Inventario", "Haz clic en cada objeto para ver sus detalles.");
+  }
+
+  /* RENDERIZADO PIXEL ART */
+
+  function dibujarJugador(x, y) {
+    ctx.fillStyle = "#221915"; ctx.fillRect(x + 2, y + 0, 8, 3);
+    ctx.fillStyle = "#3a2a22"; ctx.fillRect(x + 1, y + 3, 10, 1);
+    ctx.fillStyle = "#110b08"; ctx.fillRect(x + 3, y + 4, 6, 2);
+    ctx.fillStyle = "#6e4726"; ctx.fillRect(x + 2, y + 6, 8, 7);
+    ctx.fillStyle = "#8b5a2b"; ctx.fillRect(x + 3, y + 6, 6, 7);
+    ctx.fillStyle = "#523319"; ctx.fillRect(x + 1, y + 7, 2, 5);
+    ctx.fillStyle = "#523319"; ctx.fillRect(x + 9, y + 7, 2, 5);
+    ctx.fillStyle = "#331f0f"; ctx.fillRect(x + 2, y + 11, 8, 1);
+    ctx.fillStyle = "#1a1a1a"; ctx.fillRect(x + 3, y + 13, 2, 3);
+    ctx.fillStyle = "#1a1a1a"; ctx.fillRect(x + 7, y + 13, 2, 3);
+    ctx.fillStyle = "#000000"; ctx.fillRect(x + 2, y + 16, 3, 2);
+    ctx.fillStyle = "#000000"; ctx.fillRect(x + 7, y + 16, 3, 2);
+  }
+
+  function dibujarNPCOficial(x, y) {
+    ctx.fillStyle = "#111111"; ctx.fillRect(x + 2, y + 0, 8, 3);
+    ctx.fillStyle = "#2a2a2a"; ctx.fillRect(x + 0, y + 3, 12, 1);
+    ctx.fillStyle = "#ffdbac"; ctx.fillRect(x + 3, y + 4, 6, 3);
+    ctx.fillStyle = "#000000"; ctx.fillRect(x + 4, y + 5, 1, 1);
+    ctx.fillStyle = "#000000"; ctx.fillRect(x + 7, y + 5, 1, 1);
+    ctx.fillStyle = "#1a1a1a"; ctx.fillRect(x + 2, y + 7, 8, 6);
+    ctx.fillStyle = "#ffffff"; ctx.fillRect(x + 5, y + 7, 2, 3);
+    ctx.fillStyle = "#111111"; ctx.fillRect(x + 1, y + 7, 2, 5);
+    ctx.fillStyle = "#111111"; ctx.fillRect(x + 9, y + 7, 2, 5);
+    ctx.fillStyle = "#111111"; ctx.fillRect(x + 3, y + 13, 2, 3);
+    ctx.fillStyle = "#111111"; ctx.fillRect(x + 7, y + 13, 2, 3);
+    ctx.fillStyle = "#000000"; ctx.fillRect(x + 2, y + 16, 3, 2);
+    ctx.fillStyle = "#000000"; ctx.fillRect(x + 7, y + 16, 3, 2);
+  }
+
+  function dibujarNPCPoblador(x, y, tipo) {
+    if (tipo === "chaleco") {
+      ctx.fillStyle = "#4a3328"; ctx.fillRect(x + 2, y + 0, 8, 2);
+      ctx.fillStyle = "#2d1e18"; ctx.fillRect(x + 1, y + 2, 10, 1);
+      ctx.fillStyle = "#e0ac69"; ctx.fillRect(x + 3, y + 3, 6, 3);
+      ctx.fillStyle = "#ffffff"; ctx.fillRect(x + 2, y + 6, 8, 6);
+      ctx.fillStyle = "#5c3d2e"; ctx.fillRect(x + 2, y + 6, 2, 6);
+      ctx.fillStyle = "#5c3d2e"; ctx.fillRect(x + 8, y + 6, 2, 6);
+      ctx.fillStyle = "#333333"; ctx.fillRect(x + 3, y + 12, 2, 4);
+      ctx.fillStyle = "#333333"; ctx.fillRect(x + 7, y + 12, 2, 4);
+    } else {
+      ctx.fillStyle = "#222222"; ctx.fillRect(x + 2, y + 0, 8, 3);
+      ctx.fillStyle = "#ffdbac"; ctx.fillRect(x + 3, y + 3, 6, 3);
+      ctx.fillStyle = "#3d4a3e"; ctx.fillRect(x + 2, y + 6, 8, 6);
+      ctx.fillStyle = "#1a1a1a"; ctx.fillRect(x + 3, y + 12, 2, 4);
+      ctx.fillStyle = "#1a1a1a"; ctx.fillRect(x + 7, y + 12, 2, 4);
+    }
+  }
+
+  function dibujarGlobo(x, y) {
+    ctx.fillStyle = "#ffffff"; ctx.fillRect(x - 2, y - 18, 16, 12);
+    ctx.strokeStyle = "#000000"; ctx.strokeRect(x - 2, y - 18, 16, 12);
+    ctx.fillStyle = "#000000"; ctx.font = "8px monospace";
+    ctx.fillText("...", x + 2, y - 9);
+  }
+
+  function dibujar() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#3d522b"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#8c7b60"; ctx.fillRect(140, 20, 120, 205); ctx.fillRect(20, 90, 360, 45);
+
+    ctx.fillStyle = "#7a6a52";
+    for(let i=140; i<260; i+=10) {
+      for(let j=20; j<225; j+=10) {
+        if((i+j)%20===0) ctx.fillRect(i, j, 4, 4);
+      }
+    }
+
+    ctx.fillStyle = "#9c8e79"; ctx.fillRect(120, 0, 160, 38);
+    ctx.fillStyle = "#4a3322"; ctx.fillRect(180, 15, 20, 23);
+
+    ctx.fillStyle = "#111"; ctx.fillRect(248, 65, 3, 20);
+    ctx.fillStyle = "#fde047"; ctx.fillRect(247, 62, 5, 5);
+
+    npcsAmbiente.forEach(npc => dibujarNPCPoblador(npc.x, npc.y, npc.tipo));
+    dibujarNPCPoblador(npcInformante.x, npcInformante.y, npcInformante.tipo);
+    dibujarNPCOficial(npcOficial.x, npcOficial.y);
+
+    if (npcOficial.cerca && pasoMision <= 2) dibujarGlobo(npcOficial.x, npcOficial.y);
+    if (npcInformante.cerca && pasoMision === 3) dibujarGlobo(npcInformante.x, npcInformante.y);
+
+    dibujarJugador(jugador.x, jugador.y);
+  }
+
+  function bucle() {
+    actualizar();
+    dibujar();
+    requestAnimationFrame(bucle);
+  }
+
+  bucle();
+</script>
+</body>
+</html>

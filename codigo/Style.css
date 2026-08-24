@@ -1,0 +1,60 @@
+/* --- ESTILO GENERAL Y FONDO DE LA PANTALLA --- */
+
+body {
+  background-color: #0d0d0d;
+  /* Degradado radial para dar ambiente de iluminación central */
+  background-image: radial-gradient(circle at 50% 50%, #1c1c24 0%, #050508 100%);
+  color: #fff;
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* --- CONTENEDOR Y MARCO RETRO DEL JUEGO --- */
+
+#game-wrapper {
+  position: relative;
+  width: 800px;
+  height: 450px;
+  background-color: #3d522b; /* Tono verde pasto base para prevenir parpadeos */
+  border: 4px solid #2a1a08;
+  border-radius: 4px;
+  /* Sombra doble para efecto de relieve e integración al fondo */
+  box-shadow: 
+    0 0 0 2px #5c3d2e,
+    0 10px 25px rgba(0, 0, 0, 0.85),
+    inset 0 0 15px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+/* --- RENDERIZADO PIXEL ART DEL CANVAS --- */
+
+canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* Renderizado estricto sin suavizado ni desenfoque de píxeles */
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  image-rendering: -moz-crisp-edges;
+}
+
+/* --- TEXTURA RETRO OPCIONAL (LÍNEAS DE ESCANEO / CRT) --- */
+
+#game-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Simula las líneas de TV/Pantalla clásica sobre el escenario */
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.12) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none; /* Permite hacer clic a través del efecto */
+  z-index: 5;
+}
