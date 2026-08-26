@@ -1,8 +1,7 @@
-/* --- ESTILO GENERAL Y FONDO DE LA PANTALLA --- */
+* { box-sizing: border-box; user-select: none; }
 
 body {
   background-color: #0d0d0d;
-  /* Degradado radial para dar ambiente de iluminación central */
   background-image: radial-gradient(circle at 50% 50%, #1c1c24 0%, #050508 100%);
   color: #fff;
   font-family: 'Courier New', Courier, monospace;
@@ -14,47 +13,128 @@ body {
   overflow: hidden;
 }
 
-/* --- CONTENEDOR Y MARCO RETRO DEL JUEGO --- */
-
 #game-wrapper {
   position: relative;
   width: 800px;
   height: 450px;
-  background-color: #3d522b; /* Tono verde pasto base para prevenir parpadeos */
+  background-color: #3d522b;
   border: 4px solid #2a1a08;
   border-radius: 4px;
-  /* Sombra doble para efecto de relieve e integración al fondo */
-  box-shadow: 
-    0 0 0 2px #5c3d2e,
-    0 10px 25px rgba(0, 0, 0, 0.85),
-    inset 0 0 15px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.85);
   overflow: hidden;
 }
-
-/* --- RENDERIZADO PIXEL ART DEL CANVAS --- */
 
 canvas {
   width: 100%;
   height: 100%;
   display: block;
-  /* Renderizado estricto sin suavizado ni desenfoque de píxeles */
   image-rendering: pixelated;
-  image-rendering: crisp-edges;
-  image-rendering: -moz-crisp-edges;
 }
 
-/* --- TEXTURA RETRO OPCIONAL (LÍNEAS DE ESCANEO / CRT) --- */
-
-#game-wrapper::after {
-  content: "";
+/* Modales y UI */
+#bando-modal {
   position: absolute;
   inset: 0;
-  /* Simula las líneas de TV/Pantalla clásica sobre el escenario */
-  background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%, 
-    rgba(0, 0, 0, 0.12) 50%
-  );
-  background-size: 100% 4px;
-  pointer-events: none; /* Permite hacer clic a través del efecto */
-  z-index: 5;
+  background: rgba(15, 15, 20, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
 }
+
+.btn-bando {
+  padding: 12px 30px;
+  font-family: inherit; font-size: 16px; font-weight: bold;
+  color: white; border: 3px solid #fff; cursor: pointer;
+  margin: 10px; width: 220px; text-transform: uppercase;
+  box-shadow: 3px 3px 0px #000;
+}
+.federal { background-color: #8b0000; }
+.unitario { background-color: #1d4ed8; }
+
+#missions-scroll {
+  position: absolute; top: 10px; left: 10px; width: 210px;
+  background-color: #f3e5ab; border: 3px solid #78350f;
+  border-radius: 4px; padding: 8px 10px; color: #3b1f0d;
+  z-index: 10;
+}
+#missions-scroll h3 { margin: 0 0 6px 0; font-size: 12px; border-bottom: 2px dashed #a16207; }
+.mission-item { font-size: 9px; font-weight: bold; margin-bottom: 4px; }
+.mission-dest { color: #9a3412; font-size: 8px; display: block; margin-top: 2px; }
+
+#minimap-container {
+  position: absolute; top: 10px; right: 10px; width: 110px; height: 95px;
+  background: #d97706; border: 3px solid #78350f; cursor: pointer; z-index: 10; padding: 3px;
+}
+#minimap-inner { width: 100%; height: 100%; background: #e2b87f; position: relative; }
+#minimap-hint { position: absolute; bottom: -18px; right: 0; font-size: 8px; background: #000; color: #fff; padding: 1px 4px; }
+
+#map-modal {
+  position: absolute; inset: 0; background: rgba(0, 0, 0, 0.7);
+  display: none; justify-content: center; align-items: center; z-index: 80;
+}
+#map-frame {
+  position: relative; width: 360px; height: 360px; background-color: #d97706;
+  border: 12px solid #78350f; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+}
+#map-canvas-bg { width: 320px; height: 320px; background: #e5c390; border-radius: 50%; position: relative; overflow: hidden; }
+.map-tag { position: absolute; background: #18181b; color: #fff; font-size: 8px; padding: 2px 4px; border-radius: 3px; }
+#close-map-btn { position: absolute; top: 15px; right: 15px; width: 32px; height: 32px; background: #fff; border: 3px solid #451a03; cursor: pointer; z-index: 90; }
+
+#status-bar-container { position: absolute; bottom: 15px; left: 10px; display: flex; align-items: center; z-index: 10; }
+#status-icon { width: 26px; height: 26px; background-color: #f97316; border: 2px solid #fff; display: flex; align-items: center; justify-content: center; z-index: 11; }
+#status-bar { width: 150px; height: 14px; background-color: #374151; border: 2px solid #fff; margin-left: -4px; }
+
+#inventory-circle { position: absolute; bottom: 15px; right: 15px; z-index: 10; display: flex; gap: 5px; }
+.inv-slot { font-size: 20px; background: #555; padding: 5px; border: 2px solid #fff; border-radius: 50%; cursor: pointer; }
+
+#item-inspect-modal {
+  display: none; position: absolute; background: #fff; color: #000;
+  padding: 10px; border: 2px solid #000; z-index: 50; width: 200px;
+}
+
+/* DIÁLOGO */
+#dialogue-box {
+  display: none; position: absolute; bottom: 60px; left: 50%;
+  transform: translateX(-50%); width: 80%; background: #f3e5ab;
+  border: 4px solid #78350f; color: #3b1f0d; padding: 15px; z-index: 60;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+}
+#dialogue-options { margin-top: 10px; display: flex; gap: 10px; justify-content: center; }
+#dialogue-options button { padding: 5px 10px; background: #d97706; border: 2px solid #78350f; color: #fff; cursor: pointer; font-family: inherit; font-weight: bold; }
+#dialogue-options button:hover { background: #b45309; }
+
+/* GAME OVER */
+#game-over-screen {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 200;
+  background-color: #000;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 25px;
+}
+.go-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  image-rendering: auto; /* Para que la imagen jpg se vea bien */
+}
+#btn-reiniciar {
+  padding: 10px 30px;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #f3e5ab;
+  color: #3b1f0d;
+  border: 4px solid #78350f;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+#btn-reiniciar:hover { background: #e2b87f; }
