@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Infiltrado - Mapa e Inventario Funcionales</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="game-wrapper">
+    <canvas id="gameCanvas" width="400" height="225"></canvas>
+
+    <!-- Selección de Bando -->
+    <div id="bando-modal">
+      <h2>INFILTRADO: ELECCIÓN DE BANDO</h2>
+      <button class="btn-bando federal" onclick="iniciarJuego('Federal')">FEDERAL</button>
+      <button class="btn-bando unitario" onclick="iniciarJuego('Unitario')">UNITARIO</button>
+    </div>
+
+    <!-- Tabla de Misiones -->
+    <div id="missions-scroll">
+      <h3>MISIONES Y DESTINO</h3>
+      <div id="mission-content">
+        <div class="mission-item">
+          <span id="mision-titulo">1. HABLAR CON EL OFICIAL</span>
+          <span class="mission-dest" id="mision-guia">📍 Ir a: Plaza Mayor (Norte)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Minimapa Clicable -->
+    <div id="minimap-container" onclick="toggleMapa(true)">
+      <div id="minimap-inner">
+        <span style="position: absolute; top: 2px; left: 20px; font-size: 6px; font-weight: bold; color: #451a03;">PLAZA MAYOR</span>
+        <span style="position: absolute; bottom: 4px; left: 2px; font-size: 6px; font-weight: bold; color: #451a03;">CONVENTO</span>
+      </div>
+      <div id="minimap-hint">[M] MAPA</div>
+    </div>
+
+    <!-- Modal del Mapa Ampliado -->
+    <div id="map-modal">
+      <button id="close-map-btn" onclick="toggleMapa(false)">X</button>
+      <div id="map-frame">
+        <div id="map-canvas-bg">
+          <div class="map-tag" style="top: 25px; left: 110px;">PLAZA MAYOR</div>
+          <div class="map-tag" style="top: 130px; left: 15px;">RETIRO</div>
+          <div class="map-tag" style="top: 130px; right: 15px;">PUERTO</div>
+          <div class="map-tag" style="bottom: 75px; left: 40px;">CONVENTO</div>
+          <div class="map-tag" style="bottom: 45px; right: 50px;">SUR</div>
+          <div id="map-player-pin" style="position: absolute; color: red; font-size: 14px; font-weight: bold;">📍</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barra de Estado -->
+    <div id="status-bar-container">
+      <div id="status-icon">👤</div>
+      <div id="status-bar">
+        <div id="status-fill"></div>
+      </div>
+    </div>
+
+    <!-- Inventario Circular Interactivo -->
+    <div id="inventory-circle">
+      <div id="inventory-inner">
+        <span class="inv-slot" id="slot-key" onclick="inspeccionarItem(event, 'Llave Dorada', 'Abre pasadizos antiguos en el Sur.')">🔑</span>
+        <span class="inv-slot" id="slot-letter" onclick="inspeccionarItem(event, 'Carta Confidencial', 'Documento para el Informante del Convento.')">📄</span>
+        <span class="inv-slot" id="slot-berry" onclick="inspeccionarItem(event, 'Suministros', 'Fruta recolectada en el camino.')">🍓</span>
+      </div>
+    </div>
+
+    <!-- Cuadro de Inspección de Inventario -->
+    <div id="item-inspect-modal">
+      <strong id="inspect-title">Objeto</strong>
+      <p id="inspect-desc" style="margin: 4px 0 0 0;"></p>
+    </div>
+
+    <!-- Cuadro de Diálogo -->
+    <div id="dialogue-box">
+      <div id="dialogue-text">...</div>
+      <div id="dialogue-options"></div>
+    </div>
+
+    <!-- PANTALLA GAME OVER -->
+    <div id="game-over-screen">
+      <img src="pantalla gameover.jpg" alt="Game Over" class="go-bg">
+      <button id="btn-reiniciar" onclick="location.reload()">REINTENTAR</button>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
