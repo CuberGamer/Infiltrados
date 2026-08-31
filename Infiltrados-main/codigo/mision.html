@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Infiltrados - Exploración</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/mision.css">
+</head>
+<body>
+
+    <!-- Bloqueo vertical para celulares -->
+    <div class="bloqueo-vertical">
+        <div class="mensaje-giro">
+            <span>🔄</span>
+            <p>Por favor, gira tu dispositivo en posición horizontal para jugar.</p>
+        </div>
+    </div>
+
+    <div class="pantalla-completa">
+        
+        <!-- Tablero contenedor general (1920x1080) -->
+        <div class="tablero-juego" id="contenedor-juego">
+            
+            <!-- ESCENA DEL MUNDO (Fondo del pueblo) -->
+            <div class="escena-mundo" id="escena-mundo">
+                <!-- Tu personaje -->
+                <div class="personaje" id="jugador"></div>
+
+                <!-- FLECHAS INTERACTIVAS EN LA PANTALLA (Estilo tu boceto) -->
+                <div class="flecha-ui flecha-abajo" id="btn-abajo"></div>
+                <div class="flecha-ui flecha-izq" id="btn-izq"></div>
+                <div class="flecha-ui flecha-der" id="btn-der"></div>
+            </div>
+
+            <!-- HUD: Misiones (Esquina Superior Izquierda) -->
+            <div class="hud-misiones"></div>
+
+            <!-- ========================================== -->
+            <!-- 🗺️ NUEVO: HUD DE MAPA (Esquina Superior Derecha) -->
+            <!-- ========================================== -->
+            <div class="hud-mapa" id="btn-abrir-mapa"></div>
+
+            <!-- HUD: Barra de Sospecha (Esquina Inferior Izquierda) -->
+            <div class="hud-barra-sospecha">
+                <div class="icono-agente">👤</div>
+                <div class="barra-progreso-fondo">
+                    <div class="barra-progreso-relleno" style="width: 25%;"></div>
+                </div>
+            </div>
+
+            <!-- HUD: Inventario (Esquina Inferior Derecha) -->
+            <div class="hud-inventario">
+                <div class="slot-item activo">🔑</div>
+                <div class="slot-item">🍓</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Script de movimiento -->
+    <script src="JavaScript/mision.js" defer></script>
+
+    <!-- ========================================== -->
+    <!-- MODAL DE MISIÓN GRANDE (Oculto por defecto) -->
+    <!-- ========================================== -->
+    <div class="modal-misiones" id="modal-mision" style="display: none;">
+        <div class="pergamino-grande">
+            <!-- Botón Cerrar (X) -->
+            <button class="btn-cerrar" id="btn-cerrar-mision">X</button>
+            
+            <!-- Título y Texto de la Misión -->
+            <h2>MISIONES</h2>
+            <p>• PEDIR LA CARTA<br>SIN LEVANTAR<br>SOSPECHAS DE<br>INFILTRADO</p>
+            
+            <!-- Botón Iniciar -->
+            <button class="btn-iniciar" id="btn-iniciar-mision">INICIAR</button>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 🗺️ NUEVO: MODAL DE MAPA GRANDE (Oculto por defecto) -->
+    <!-- ========================================== -->
+    <div class="modal-mapa" id="modal-mapa" style="display: none;">
+        <div class="pergamino-mapa">
+            <!-- Botón Cerrar (X) -->
+            <button class="btn-cerrar" id="btn-cerrar-mapa">X</button>
+            
+            <!-- Título del Mapa -->
+            <h2>MAPA DEL PUEBLO</h2>
+            
+            <!-- Contenedor de la Imagen del Mapa -->
+            <div class="contenido-mapa">
+                <img src="../../Recursos_graficos/UI/Mapa.png" alt="Mapa del Pueblo" class="img-mapa-real">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

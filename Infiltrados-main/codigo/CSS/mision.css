@@ -1,0 +1,413 @@
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url('../../Recursos_graficos/Fuentes/PressStart2P-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Press Start 2P', monospace, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.pantalla-completa {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Tablero 1920x1080 escalable */
+.tablero-juego {
+  width: 1920px;
+  height: 1080px;
+  flex-shrink: 0;
+  transform-origin: center center;
+  position: relative;
+  overflow: hidden;
+  border: 8px solid #1a1a1a;
+  outline: 6px solid #f7ca40;
+}
+
+/* Escena del mundo */
+.escena-mundo {
+  width: 100%;
+  height: 100%;
+  background-image: url('../../Recursos_graficos/Fondos/Fondo_Juego1.png');
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Personaje (Inicia en el centro: 900px, 500px) */
+.personaje {
+  display: none; /* Oculto por defecto, se mostrará cuando se cargue la escena */
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  left: 900px;
+  top: 500px;
+  background-color: #8c5830;
+  border: 3px solid #000;
+  border-radius: 4px;
+}
+
+/* ==========================================
+   FLECHAS INTERACTIVAS EN PANTALLA
+   ========================================== */
+
+/* Definimos la rotación base para cada dirección */
+.flecha-der    { --rotacion: -45deg; }
+.flecha-abajo  { --rotacion: 90deg; }
+.flecha-izq    { --rotacion: -135deg; }
+
+/**.flecha-arriba { --rotacion: -90deg; }**/
+
+.flecha-ui {
+  position: absolute;
+  width: 80px;  /* Ajusta el tamaño si lo ves muy chico o grande */
+  height: 80px;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  
+  /* Carga tu imagen base que apunta a la derecha */
+  background-image: url('../../Recursos_graficos/UI/flecha.png'); /* Cambia por el nombre real de tu archivo de flecha */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  cursor: pointer;
+  z-index: 10;
+
+  /* Aplicamos la rotación combinada con una transición suave */
+  transform: rotate(var(--rotacion, 0deg));
+  transition: transform 0.15s ease;
+}
+
+/* Efecto al pasar el mouse: mantiene la rotación y agranda la flecha */
+.flecha-ui:hover {
+  transform: rotate(var(--rotacion, 0deg)) scale(1.2);
+}
+
+.flecha-ui:active {
+  transform: rotate(var(--rotacion, 0deg)) scale(0.95);
+}
+
+/* Posiciones relativas alrededor del personaje en el centro del mapa */
+.flecha-arriba { top: 410px; left: 902px; }
+.flecha-abajo  { top: 590px; left: 902px; }
+.flecha-izq    { top: 450px; left: 810px; }
+.flecha-der    { top: 450px; left: 994px; }
+/* ==========================================
+   HUD: MISIONES (Pergamino interactivo)
+   ========================================== */
+.hud-misiones {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  width: 260px;
+  height: 360px;
+  background-image: url('../../Recursos_graficos/UI/Mision.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  transform: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  padding: 40px 30px; /* Ajusta según el margen interno de tu imagen */
+  display: flex;
+  flex-direction: column;
+}
+
+.hud-misiones:hover {
+  transform: scale(1.05);
+}
+
+.hud-misiones h2 {
+ font-size: 46px; /* Antes estaba en 32px */
+  color: #2b1d0c;
+  margin-bottom: 30px;
+}
+
+.hud-misiones p {
+font-size: 24px; /* Antes estaba en 18px */
+  color: #2b1d0c;
+  line-height: 1.8;
+  margin-bottom: 45px;
+}
+
+/* Minimapa (Superior Derecha) */
+.hud-minimapa {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, #5c3a21 0%, #2b1d0c 100%);
+  border: 6px solid #1a1a1a;
+  outline: 4px solid #f7ca40;
+  border-radius: 50%;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mini-texto {
+  font-size: 10px;
+  color: #f7ca40;
+  background: rgb(97, 53, 4);
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+
+/* Barra de Sospecha (Inferior Izquierda) */
+.hud-barra-sospecha {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 15px 25px;
+  border: 4px solid #1a1a1a;
+  outline: 3px solid #6b4423;
+  border-radius: 10px;
+}
+.icono-agente { font-size: 22px; }
+.barra-progreso-fondo {
+  width: 350px;
+  height: 22px;
+  background-color: #1a1a1a;
+  border: 3px solid #000;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.barra-progreso-relleno {
+  height: 100%;
+  background-color: #b83324;
+}
+
+/* Inventario (Inferior Derecha) */
+.hud-inventario {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  width: 230px;
+  height: 100px;
+  background: radial-gradient(circle, #8c5830 0%, #5c3a21 100%);
+  border: 6px solid #1a1a1a;
+  outline: 4px solid #f7ca40;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+.slot-item {
+  width: 55px;
+  height: 55px;
+  background-color: rgba(0,0,0,0.5);
+  border: 3px solid #1a1a1a;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+}
+.slot-item.activo {
+  border-color: #f7ca40;
+}
+
+/* ==========================================
+   ESTILOS PARA EL MODAL DE MISIÓN GRANDE
+   ========================================== */
+.modal-misiones {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.pergamino-grande {
+  position: relative;
+  width: 1100px;  
+  height: 750px;
+  background-image: url('../../Recursos_graficos/UI/Fondo_Mision.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 100px;
+  text-align: center;
+}
+
+.pergamino-grande h2 {
+  font-size: 50px;
+  color: #2b1d0c;
+  margin-bottom: 25px;
+}
+
+.pergamino-grande p {
+  font-size: 30px;
+  color: #755104;
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+/* Botón INICIAR dentro del pergamino */
+.btn-iniciar {
+background-color: #f7ca40;
+  border: 4px solid #1a1a1a;
+  padding: 20px 50px; /* Más espacio interno para que el botón sea más grande */
+  font-family: 'Press Start 2P', monospace;
+  font-size: 22px; /* Antes estaba en 16px */
+  color: #1a1a1a;
+  cursor: pointer;
+  box-shadow: 0 6px 0px #8c5830;
+  border-radius: 6px;
+  transition: transform 0.1s ease;
+}
+
+.btn-iniciar:hover {
+  background-color: #ffe169;
+  transform: scale(1.05);
+}
+
+.btn-iniciar:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0px #8c5830;
+}
+
+/* Botón Cerrar (X) */
+.btn-cerrar {
+  position: absolute;
+  top: 100px;
+  right: 220px;
+  background-color: #f5e4c3;
+  border: 4px solid #1a1a1a;
+  width: 55px;
+  height: 55px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 20px;
+  font-weight: bold;
+  color: #1a1a1a;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 4px 0px #8c5830;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.1s ease;
+}
+
+.btn-cerrar:hover {
+  background-color: #ff6b6b;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* ==========================================
+   HUD: MAPA INTERACTIVO
+   ========================================== */
+.hud-mapa {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 240px;
+  height: 240px;
+  background-image: url('../../Recursos_graficos/UI/Mapa.png'); 
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  z-index: 10;
+}
+
+.hud-mapa:hover {
+  transform: scale(1.05);
+}
+
+/* ==========================================
+   MODAL DEL MAPA GRANDE
+   ========================================== */
+.modal-mapa {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.pergamino-mapa {
+  position: relative;
+  width: 1100px;  
+  height: 750px;
+  background-image: url('../../Recursos_graficos/UI/Fondo_Mision.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 80px;
+  text-align: center;
+}
+
+.pergamino-mapa h2 {
+  font-size: 36px;
+  color: #2b1d0c;
+  margin-bottom: 20px;
+}
+
+.contenido-mapa {
+  width: 100%;
+  height: 480px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 4px solid #2b1d0c;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.img-mapa-real {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}

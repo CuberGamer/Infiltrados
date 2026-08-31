@@ -1,0 +1,100 @@
+/* TÍTULO SUPERIOR IZQUIERDA */
+.encabezado-titulo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.titulo-principal {
+  color: #f7ca40;
+  font-size: clamp(32px, 4vw, 60px); /* El texto se escala solo según la pantalla */
+  letter-spacing: 2px;
+  text-shadow:
+    4px 4px 0px #000,
+    -4px 4px 0px #000,
+    4px -4px 0px #000,
+    -4px -4px 0px #000;
+  margin: 0;
+}
+
+.sombrero img {
+  width: clamp(40px, 5vw, 80px);
+  height: clamp(40px, 5vw, 80px);
+  object-fit: contain;
+}
+
+/* BOTONES PRINCIPALES (Mitad izquierda) */
+.menu-opciones-principales {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: min(380px, 40%);
+  margin-bottom: 20px;
+}
+
+.boton-opcion-menu {
+  width: 100%;
+  height: clamp(50px, 8vh, 80px); /* Altura fluida */
+  background-color: #fdfae7;
+  color: #1a1a1a;
+  border: 4px solid #b83324;
+  outline: 4px solid #1a1a1a;
+  border-radius: 10px;
+  font-size: clamp(14px, 2vw, 22px); /* Letra fluida */
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset -4px 4px 0px #c2bba3;
+  transition: transform 0.1s ease;
+}
+
+.boton-opcion-menu:hover {
+  background-color: #ffffff;
+  border-color: #f7ca40;
+  transform: scale(1.02);
+}
+
+/* BOTÓN CRÉDITOS (Esquina inferior derecha automática) */
+.contenedor-boton-creditos {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+}
+
+.boton-creditos-informacion {
+  width: clamp(60px, 8vw, 90px);
+  height: clamp(60px, 8vw, 90px);
+  background-color: #fdfae7;
+  border: 4px solid #b83324;
+  outline: 4px solid #1a1a1a;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  box-shadow: inset -4px 4px 0px #c2bba3;
+  transition: transform 0.1s ease;
+}
+
+.boton-creditos-informacion:hover {
+  background-color: #ffffff;
+  border-color: #f7ca40;
+  transform: scale(1.05);
+}
+
+.texto-boton-creditos {
+  font-size: clamp(8px, 1vw, 11px);
+  color: #1a1a1a;
+  font-weight: bold;
+}
+
+.icono-documento-creditos {
+  width: clamp(24px, 4vw, 48px);
+  height: clamp(24px, 4vw, 48px);
+  object-fit: contain;
+}

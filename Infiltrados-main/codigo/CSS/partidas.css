@@ -1,0 +1,294 @@
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url('../../Recursos_graficos/Fuentes/PressStart2P-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Press Start 2P', monospace, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-image: url('../../Recursos_graficos/Fondos/Fondo_inicio.png');
+  background-size: cover;
+  background-position: center;
+  background-color: #000;
+}
+
+.pantalla-completa {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* ==========================================
+   TABLERO GENERAL (1920x1080)
+   ================================---------- */
+.tablero-config {
+  width: 1820px;
+  height: 1000px;
+  flex-shrink: 0;
+  transform-origin: center center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 50px 100px;
+  box-sizing: border-box;
+  background-color: #8c5830;
+  border: 8px solid #1a1a1a;
+  outline: 6px solid #f7ca40;
+  border-radius: 4px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
+  position: relative;
+}
+
+.titulo-config {
+  color: #f7ca40;
+  font-size: 55px;
+  letter-spacing: 3px;
+  text-shadow:
+    4px 4px 0px #000,
+    -4px 4px 0px #000,
+    4px -4px 0px #000,
+    -4px -4px 0px #000;
+  margin-top: 10px;
+  margin-bottom: 35px;
+  text-align: center;
+}
+
+/* ==========================================
+   CONTENEDOR DE DOS COLUMNAS
+   ================================---------- */
+.contenido-gestor {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1550px;
+  gap: 60px;
+}
+
+.columna-izquierda,
+.columna-derecha {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 50%;
+}
+
+/* Cajas estilo panel pixel art */
+.caja-panel {
+  width: 100%;
+  height: 520px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 4px solid #1a1a1a;
+  outline: 3px solid #6b4423;
+  border-radius: 8px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: inset 0 6px 0px rgba(0, 0, 0, 0.4);
+}
+
+.caja-info {
+  justify-content: center;
+}
+
+.texto-placeholder, .mensaje-vacio {
+  color: #fdfae7;
+  font-size: 20px;
+  line-height: 1.8;
+  text-shadow: 2px 2px 0px #000;
+}
+
+/* Lista de partidas en el panel derecho */
+.caja-lista {
+  justify-content: flex-start;
+  align-items: stretch;
+  overflow-y: auto;
+  gap: 15px;
+}
+
+.slot-partida {
+  background-color: #5c3a21;
+  border: 4px solid #1a1a1a;
+  padding: 20px;
+  border-radius: 6px;
+  color: #fdfae7;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 0px #000;
+  transition: background 0.1s, transform 0.1s;
+}
+
+.slot-partida:hover {
+  background-color: #704729;
+}
+
+.slot-partida.seleccionado {
+  background-color: #f7ca40;
+  color: #1a1a1a;
+  border-color: #000;
+  font-weight: bold;
+}
+
+/* ==========================================
+   BOTONES DE ACCIÓN
+   ================================---------- */
+.botones-accion {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.btn-arcade {
+  width: 100%;
+  height: 65px;
+  background-color: #fdfae7;
+  color: #1a1a1a;
+  border: 4px solid #b83324;
+  outline: 4px solid #1a1a1a;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: inset -4px 4px 0px #c2bba3, 0 6px 0px #000;
+  transition: transform 0.1s ease, background-color 0.1s ease;
+}
+
+.btn-arcade:hover:not(:disabled) {
+  background-color: #ffffff;
+  border-color: #f7ca40;
+  transform: scale(1.02);
+}
+
+.btn-arcade:disabled {
+  background-color: #555;
+  color: #888;
+  border-color: #333;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-peligro {
+  border-color: #700;
+}
+
+/* ==========================================
+   VENTANA MODAL RETRO
+   ================================---------- */
+.modal-fondo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-caja {
+  width: 600px;
+  background-color: #8c5830;
+  border: 8px solid #1a1a1a;
+  outline: 6px solid #f7ca40;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.9);
+  text-align: center;
+}
+
+.modal-caja h2 {
+  color: #f7ca40;
+  font-size: 30px;
+  margin: 0;
+  text-shadow: 3px 3px 0px #000;
+}
+
+.modal-caja p {
+  color: #fdfae7;
+  font-size: 16px;
+  margin: 0;
+  text-shadow: 2px 2px 0px #000;
+}
+
+.modal-caja input {
+  width: 100%;
+  height: 60px;
+  background: #1a1a1a;
+  color: #fdfae7;
+  border: 4px solid #000;
+  border-radius: 6px;
+  font-size: 20px;
+  padding: 0 20px;
+  text-align: center;
+  outline: none;
+}
+
+.modal-botones {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+/* ==========================================
+   BOTÓN VOLVER
+   ================================---------- */
+.boton-volver {
+  position: absolute;
+  bottom: 40px;
+  left: 0px;
+  width: 120px;
+  height: 100px;
+  background-color: #fdfae7;
+  color: #1a1a1a;
+  border: 4px solid #b83324;
+  outline: 4px solid #1a1a1a;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  box-shadow: inset -4px 4px 0px #c2bba3, 0 6px 0px #000;
+  transition: transform 0.1s ease, background-color 0.1s ease;
+}
+
+.boton-volver:hover {
+  background-color: #ffffff;
+  border-color: #f7ca40;
+  transform: scale(1.05);
+}
+
+.texto-volver {
+  font-size: 11px;
+}
+
+.icono-volver {
+  font-size: 24px;
+}

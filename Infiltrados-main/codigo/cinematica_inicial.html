@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Infiltrados - Prólogo</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/cinematica_inicio.css">
+</head>
+<body>
+
+    <!-- Bloqueo vertical para celulares -->
+    <div class="bloqueo-vertical">
+        <div class="mensaje-giro">
+            <span>🔄</span>
+            <p>Por favor, gira tu dispositivo en posición horizontal para jugar.</p>
+        </div>
+    </div>
+
+    <div class="pantalla-completa">
+        
+        <!-- Tablero base (1920x1080) con fondo negro exterior -->
+        <div class="tablero-cinematica" id="contenedor-juego">
+            
+            <!-- Marco interior que contiene la escena del bodegón -->
+            <div class="marco-cinematica">
+                
+                <!-- Caja de Diálogo / Pergamino Inferior -->
+                <div class="caja-pergamino" id="caja-dialogo">
+                    <p id="texto-dialogo">Cargando transmisión...</p>
+                </div>
+
+                <!-- Botón SKIP (Inferior Derecho) -->
+                <button class="btn-skip" id="btn-skip">SKIP</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Script de la cinemática -->
+    <script src="JavaScript/cinematica_inicio.js" defer></script>
+
+</body>
+</html>

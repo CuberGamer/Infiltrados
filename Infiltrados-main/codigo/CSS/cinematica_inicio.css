@@ -1,0 +1,115 @@
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url('../../Recursos_graficos/Fuentes/PressStart2P-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Press Start 2P', monospace, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.pantalla-completa {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* ==========================================
+   TABLERO GENERAL (1920x1080) - Fondo negro
+   ================================---------- */
+.tablero-cinematica {
+  width: 1900px;
+  height: 1000px;
+  flex-shrink: 0;
+  transform-origin: center center;
+  background-color: #000000; /* El cuadro negro exterior que pediste */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ==========================================
+   MARCO INTERIOR DE LA CINEMÁTICA
+   ================================---------- */
+.marco-cinematica {
+  width: 1820px; /* Deja los márgenes negros exactos a los lados */
+  height: 945px; /* Mantiene la proporción de pantalla */
+  background-image: url('../../Recursos_graficos/Animaciones/Cinematica_inicio.png');
+  background-size: cover;
+  background-position: center;
+  border: 8px solid #1a1a1a; /* Borde oscuro para estilizar el marco */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 50px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+/* ==========================================
+   CAJA DE DIÁLOGO / PERGAMINO
+   ================================---------- */
+.caja-pergamino {
+  width: 1050px;
+  min-height: 160px;
+  background-color: #f5e4c3;
+  border: 6px solid #8c5830;
+  outline: 4px solid #1a1a1a;
+  border-radius: 6px;
+  padding: 30px 45px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+  position: relative;
+}
+
+.caja-pergamino p {
+  color: #2b1d0c;
+  font-size: 19px;
+  line-height: 1.8;
+  margin: 0;
+  text-shadow: none;
+}
+
+/* ==========================================
+   BOTÓN SKIP
+   ================================---------- */
+.btn-skip {
+  position: absolute;
+  bottom: 55px;
+  right: 70px;
+  width: 130px;
+  height: 60px;
+  background-color: #fdfae7;
+  color: #1a1a1a;
+  border: 4px solid #b83324;
+  outline: 4px solid #1a1a1a;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: inset -3px 3px 0px #c2bba3, 0 6px 0px #000;
+  transition: transform 0.1s ease, background-color 0.1s ease;
+}
+
+.btn-skip:hover {
+  background-color: #ffffff;
+  border-color: #f7ca40;
+  transform: scale(1.05);
+}
