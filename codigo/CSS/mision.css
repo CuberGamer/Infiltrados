@@ -66,15 +66,28 @@ body {
 }
 
 /* ==========================================
-   FLECHAS INTERACTIVAS EN PANTALLA
+  FLECHAS INTERACTIVAS EN PANTALLA
    ========================================== */
 
 /* Definimos la rotación base para cada dirección */
-.flecha-der    { --rotacion: -45deg; }
+.flecha-derecha    { --rotacion: -45deg; }
 .flecha-abajo  { --rotacion: 90deg; }
-.flecha-izq    { --rotacion: -135deg; }
+.flecha-izquierda    { --rotacion: -135deg; }
 
 /**.flecha-arriba { --rotacion: -90deg; }**/
+
+/* FLECHA DEL NPC (NUEVO) */
+.flecha-npc {
+    --rotacion: 90; /* Apunta hacia abajo al NPC */
+    top: 260px; /* Ajusta estos valores según dónde esté parado tu NPC en el centro */
+    left: 800px;
+    animation: flotarNpc 1s infinite alternate ease-in-out;
+}
+
+@keyframes flotarNpc {
+    0% { transform: rotate(230deg) translateY(0); }
+    100% { transform: rotate(240deg) translateY(-15px); }
+}
 
 .flecha-ui {
   position: absolute;
@@ -110,10 +123,10 @@ body {
 /* Posiciones relativas alrededor del personaje en el centro del mapa */
 .flecha-arriba { top: 410px; left: 902px; }
 .flecha-abajo  { top: 590px; left: 902px; }
-.flecha-izq    { top: 450px; left: 810px; }
-.flecha-der    { top: 450px; left: 994px; }
+.flecha-izquierda    { top: 450px; left: 810px; }
+.flecha-derecha     { top: 450px; left: 994px; }
 /* ==========================================
-   HUD: MISIONES (Pergamino interactivo)
+  HUD: MISIONES (Pergamino interactivo)
    ========================================== */
 .hud-misiones {
   position: absolute;

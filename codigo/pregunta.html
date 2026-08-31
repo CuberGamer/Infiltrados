@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infiltrados - Pregunta</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/pregunta.css">
+</head>
+<body>
+    <div class="pantalla-completa">
+        <div class="tablero-juego" id="contenedor-juego">
+            <div class="escena-mundo" style="background-image: url('../../Recursos_graficos/Fondos/Fondo_Pregunta.png');">
+                <!-- Personajes estáticos de fondo -->
+                
+                <!-- Caja de Pregunta Inferior -->
+                <div class="caja-encuesta">
+                    <p class="texto-pregunta">ANTES DE CONFIARTE ESTA CARTA, NECESITO SABER ALGO.<br>¿CON QUÉ COLOR SE IDENTIFICA AL PARTIDO FEDERAL?</p>
+                    <div class="contenedor-opciones">
+                        <button class="btn-opcion btn-rojo" onclick="responder(true)">EL COLOR ROJO PUNZÓ</button>
+                        <button class="btn-opcion btn-azul" onclick="responder(false)">EL COLOR AZUL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="JavaScript/pregunta.js" defer></script>
+</body>
+</html>

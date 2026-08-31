@@ -1,141 +1,147 @@
-// ================================
 // ESCALADO DEL LIENZO
-// ================================
 function ajustarEscalaLienzo() {
     const ANCHO_BASE = 1920;
     const ALTO_BASE = 1080;
     const contenedor = document.getElementById('contenedor-juego');
-
     if (!contenedor) return;
-
     const escalaAncho = window.innerWidth / ANCHO_BASE;
     const escalaAlto = window.innerHeight / ALTO_BASE;
     const escalaFinal = Math.min(escalaAncho, escalaAlto);
+    contenedor.style.transform = `translate(-50%, -50%) scale(${escalaFinal})`;
+}
 
-    contenedor.style.transform = `scale(${escalaFinal})`;
+// Aseguramos posicionamiento absoluto centrado para que funcione el translate del scale
+const contenedorJuego = document.getElementById('contenedor-juego');
+if (contenedorJuego) {
+    contenedorJuego.style.position = 'absolute';
+    contenedorJuego.style.left = '50%';
+    contenedorJuego.style.top = '50%';
 }
 
 window.addEventListener('resize', ajustarEscalaLienzo);
 window.addEventListener('load', ajustarEscalaLienzo);
 
-// ================================
 // SISTEMA DE NODOS / ZONAS DEL MAPA
-// ================================
-
-// Definimos los lugares a los que se puede mover el jugador
 const zonas = {
     centro: {
-        fondo: "url('/Recursos_graficos/Fondos/Fondo_Juego1.png')", // Tu imagen de la plaza central
-        flechasVisibles: ['arriba', 'abajo', 'izq', 'der'] // Qué flechas se muestran aquí
+        fondo: "url('/Recursos_graficos/Fondos/Fondo_Juego1.png')",
+        flechasVisibles: ['abajo', 'izquierda', 'derecha']
     },
     izquierda: {
-        fondo: "url('/Recursos_graficos/Fondos/Fondo_callejon.png')", // Imagen del sector izquierdo (cámbiala por tu ruta real)
-        flechasVisibles: ['abajo'] // En este callejón solo hay flecha para volver
+        fondo: "url('../../Recursos_graficos/Fondos/Fondo_Izquierdo.png')",
+        flechasVisibles: ['derecha'] 
     },
-    preguntaNPC: {
-        // Si vas hacia arriba y te cruzas con el contacto, te manda a tu archivo de pregunta
-        accion: () => {
-            window.location.href = "pregunta.html";
-        }
+    derecha: {
+        fondo: "url('../../Recursos_graficos/Fondos/Fondo_Derecho.png')",
+        flechasVisibles: ['izquierda'] 
     }
 };
 
-// Elementos del DOM
 const escenaMundo = document.getElementById('escena-mundo');
-const btnArriba = document.getElementById('btn-arriba');
 const btnAbajo = document.getElementById('btn-abajo');
-const btnIzq = document.getElementById('btn-izq');
-const btnDer = document.getElementById('btn-der');
+const btnIzquierda = document.getElementById('btn-izquierda');
+const btnDerecha = document.getElementById('btn-derecha');
+const flechaNpc = document.getElementById('btn-flecha-npc');
+let zonaActual = 'centro';
 
-// Función para cambiar de zona dinámicamente
 function cambiarZona(nombreZona) {
+    zonaActual = nombreZona;
     const zona = zonas[nombreZona];
-
     if (!zona) return;
-
-    // Si la zona tiene una acción especial (como abrir pregunta.html)
-    if (zona.accion) {
-        zona.accion();
-        return;
+    
+    escenaMundo.style.backgroundImage = zona.fondo;
+    
+    // Mostrar/ocultar botones según la zona
+    btnAbajo.style.display = zona.flechasVisibles.includes('abajo') ? 'block' : 'none';
+    btnIzquierda.style.display = zona.flechasVisibles.includes('izquierda') ? 'block' : 'none';
+    btnDerecha.style.display = zona.flechasVisibles.includes('derecha') ? 'block' : 'none';
+    
+    // REUBICACIÓN DINÁMICA DE FLECHAS (Usando los nombres correctos: btnIzquierda y btnDerecha)
+    if (nombreZona === 'centro') {
+        btnIzquierda.style.left = '810px';
+        btnIzquierda.style.top = '450px';
+        btnDerecha.style.left = '994px';
+        btnDerecha.style.top = '450px';
+    } else if (nombreZona === 'izquierda') {
+        // Al estar a la izquierda, movemos la flecha derecha para volver al centro
+        btnDerecha.style.left = '850px';
+        btnDerecha.style.top = '500px';
+    } else if (nombreZona === 'derecha') {
+        // Al estar a la derecha, movemos la flecha izquierda para volver al centro
+        btnIzquierda.style.left = '850px';
+        btnIzquierda.style.top = '500px';
     }
 
-    // Cambiar la imagen de fondo del mapa
-    escenaMundo.style.backgroundImage = zona.fondo;
-
-    // Mostrar u ocultar las flechas según corresponda en esta zona
-    btnArriba.style.display = zona.flechasVisibles.includes('arriba') ? 'flex' : 'none';
-    btnAbajo.style.display = zona.flechasVisibles.includes('abajo') ? 'flex' : 'none';
-    btnIzq.style.display = zona.flechasVisibles.includes('izq') ? 'flex' : 'none';
-    btnDer.style.display = zona.flechasVisibles.includes('der') ? 'flex' : 'none';
+    // Control de la flecha del NPC
+    if (zonaActual !== 'centro' && flechaNpc && flechaNpc.style.display === 'block') {
+        flechaNpc.style.display = 'none';
+    }
 }
 
-// ================================
-// CONFIGURACIÓN DE CLICS EN LAS FLECHAS
-// ================================
-
-// Flecha Arriba (Desde el centro te lleva a hablar con el NPC / Pregunta)
-btnArriba.addEventListener('click', () => {
-    cambiarZona('preguntaNPC'); 
+// Lógica de navegación en las flechas
+btnIzquierda.addEventListener('click', () => {
+    if (zonaActual === 'centro') cambiarZona('izquierda');
+    else if (zonaActual === 'derecha') cambiarZona('centro');
 });
 
-// Flecha Izquierda (Te lleva al callejón sin salida de la segunda imagen)
-btnIzq.addEventListener('click', () => {
-    cambiarZona('izquierda');
+btnDerecha.addEventListener('click', () => {
+    if (zonaActual === 'centro') cambiarZona('derecha');
+    else if (zonaActual === 'izquierda') cambiarZona('centro');
 });
 
-// Flecha Abajo (Sirve para volver al centro desde cualquier lado)
 btnAbajo.addEventListener('click', () => {
     cambiarZona('centro');
 });
 
-// Flecha Derecha (Por si quieres llevarlo a otra zona, ej: puerto o sur)
-btnDer.addEventListener('click', () => {
-    // Puedes crear más zonas aquí si lo deseas
-    alert("¡Zona en exploración!");
-});
-
-// Iniciar el juego en la zona central por defecto
-cambiarZona('centro');
-
-
-// ================================
 // CONTROL DEL MODAL DE MISIONES
-// ================================
 const hudMisiones = document.querySelector('.hud-misiones');
 const modalMision = document.getElementById('modal-mision');
 const btnCerrarMision = document.getElementById('btn-cerrar-mision');
 const btnIniciarMision = document.getElementById('btn-iniciar-mision');
 
-// 1. Al hacer clic en el pergamino pequeño del HUD, se abre el modal grande
-hudMisiones.addEventListener('click', () => {
-    modalMision.style.display = 'flex';
-});
+if (hudMisiones && modalMision) {
+    hudMisiones.addEventListener('click', () => {
+        modalMision.style.display = 'flex';
+    });
+}
 
-// 2. Al hacer clic en la 'X', se cierra el modal grande
-btnCerrarMision.addEventListener('click', () => {
-    modalMision.style.display = 'none';
-});
+if (btnCerrarMision && modalMision) {
+    btnCerrarMision.addEventListener('click', () => {
+        modalMision.style.display = 'none';
+    });
+}
 
-// 3. Al hacer clic en 'INICIAR', te lleva a la pantalla de la misión/pregunta
-btnIniciarMision.addEventListener('click', () => {
-    window.location.href = "pregunta.html"; // Cambia por tu archivo de destino real
-});
+if (btnIniciarMision && modalMision) {
+    btnIniciarMision.addEventListener('click', () => {
+        modalMision.style.display = 'none';
+        cambiarZona('centro'); 
+        if (flechaNpc) flechaNpc.style.display = 'block'; 
+    });
+}
 
-// ================================
+// Ir a la encuesta al hacer clic en el NPC
+if (flechaNpc) {
+    flechaNpc.addEventListener('click', () => {
+        window.location.href = "pregunta.html";
+    });
+}
+
 // CONTROL DEL MODAL DE MAPA
-// ================================
 const hudMapa = document.getElementById('btn-abrir-mapa');
 const modalMapa = document.getElementById('modal-mapa');
 const btnCerrarMapa = document.getElementById('btn-cerrar-mapa');
 
-if (hudMapa && modalMapa && btnCerrarMapa) {
-    // 1. Al hacer clic en el minimapa, se abre el mapa grande
+if (hudMapa && modalMapa) {
     hudMapa.addEventListener('click', () => {
         modalMapa.style.display = 'flex';
     });
+}
 
-    // 2. Al hacer clic en la 'X', se cierra el mapa grande
+if (btnCerrarMapa && modalMapa) {
     btnCerrarMapa.addEventListener('click', () => {
         modalMapa.style.display = 'none';
     });
 }
+
+// Iniciar el juego en la zona central por defecto
+cambiarZona('centro');
