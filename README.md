@@ -1,4 +1,4 @@
-# Cubex
+# Infiltrados game
 
 ## Este es el repositorio del videojuego llamado "Infiltrados"
 # Desarrollado por:
