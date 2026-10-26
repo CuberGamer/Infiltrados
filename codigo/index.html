@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Configuración básica -->
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width,
+        initial-scale=1.0,
+        maximum-scale=1.0,
+        user-scalable=no,
+        viewport-fit=cover">
+
+    <title>Infiltrados - Pantalla de Inicio</title>
+
+    <!-- Estilos generales -->
+    <link rel="stylesheet" href="CSS/style.css">
+
+    <!-- Estilos específicos del menú -->
+    <link rel="stylesheet" href="CSS/menu.css">
+</head>
+
+<body>
+
+    <!-- Mensaje que aparece en dispositivos verticales -->
+    <div class="bloqueo-vertical">
+
+        <div class="mensaje-giro">
+            <span>🔄</span>
+
+            <p>
+                Por favor, gira tu dispositivo en posición horizontal para jugar.
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- Contenedor general -->
+    <div class="pantalla-completa">
+
+        <!-- Lienzo principal del juego -->
+        <main class="pantalla-inicio" id="contenedor-juego">
+
+            <!-- Título del juego -->
+            <header class="encabezado-titulo">
+
+                <h1 class="titulo-principal">
+                    INFILTRADOS
+                </h1>
+
+                <span class="sombrero">
+                    <img
+                        src="../Recursos_graficos/Iconos/ICONO_infiltrados.png"
+                        alt="Sombrero de Infiltrados">
+                </span>
+
+            </header>
+
+
+            <!-- Opciones principales -->
+            <nav class="menu-opciones-principales">
+
+                <button
+                    class="boton-opcion-menu"
+                    id="boton-iniciar-juego">
+
+                    JUGAR
+
+                </button>
+
+
+                <button
+                    class="boton-opcion-menu"
+                    id="boton-configuracion">
+
+                    CONFIGURACION
+                    
+
+                </button>
+
+
+                <button
+                    class="boton-opcion-menu boton-salir-juego"
+                    id="boton-salir-juego">
+
+                    SALIR
+
+                </button>
+
+            </nav>
+
+
+            <!-- Botón de créditos -->
+            <div class="contenedor-boton-creditos">
+
+                <button
+                    class="boton-creditos-informacion"
+                    id="boton-creditos-informacion">
+
+                    <span class="texto-boton-creditos">
+                        CREDITOS
+                    </span>
+
+                    <img
+                        src="../Recursos_graficos/Iconos/creditos-juego.png"
+                        alt="Documento de créditos"
+                        class="icono-documento-creditos">
+
+                </button>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <!-- JavaScript general -->
+    <script src="js/app.js"></script>
+
+    <!-- JavaScript de navegación -->
+    <script src="JavaScript/navegacion.js"></script>
+
+</body>
+
+</html>

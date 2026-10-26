@@ -1,0 +1,214 @@
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url('../../Recursos_graficos/Fuentes/PressStart2P-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Press Start 2P', monospace, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-image: url('../../Recursos_graficos/Fondos/Fondo_inicio.png');
+  background-size: cover;
+  background-position: center;
+  background-color: #000;
+}
+
+.pantalla-completa {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* ==========================================
+   TABLERO DE CONFIGURACIÓN (Basado en 1920x1080)
+   ================================---------- */
+/* ==========================================
+   TABLERO DE CONFIGURACIÓN
+   ================================---------- */
+.tablero-config {
+  width: 1280px;
+  height: 820px;
+  flex-shrink: 0;
+  transform-origin: center center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 80px 120px;
+  box-sizing: border-box;
+  background-color: #8c5830; /* Color madera/marrón del tablero */
+  border: 8px solid #1a1a1a;
+  outline: 6px solid #f7ca40; /* Marco interior amarillo/beige del boceto */
+  border-radius: 4px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
+  position: relative; /* Solo dejamos esto para que el botón "Volver" se posicione bien adentro */
+}
+
+/* TÍTULO PRINCIPAL */
+.titulo-config {
+  color: #f7ca40;
+  font-size: 65px;
+  letter-spacing: 3px;
+  text-shadow:
+    4px 4px 0px #000,
+    -4px 4px 0px #000,
+    4px -4px 0px #000,
+    -4px -4px 0px #000;
+  margin-top: 20px;
+  margin-bottom: 90px;
+  text-align: center;
+}
+
+/* CONTENEDOR DE CONTROLES Y SONIDO */
+.contenido-config {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1500px;
+  gap: 100px;
+}
+
+.seccion-controles, 
+.seccion-sonido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.seccion-controles h2, 
+.seccion-sonido h2 {
+  color: #f7ca40;
+  font-size: 36px;
+  text-shadow: 3px 3px 0px #000;
+  margin: 0;
+}
+
+/* ==========================================
+   TECLAS ESTILO ARCADE (Igual a tu boceto)
+   ================================---------- */
+.mapeo-teclas {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 30px;
+  border-radius: 12px;
+  border: 4px solid #1a1a1a;
+}
+
+.fila-tecla-arriba, 
+.fila-teclas-abajo {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.tecla {
+  width: 75px;
+  height: 75px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border: 4px solid #000;
+  border-radius: 8px;
+  font-size: 26px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 4px 0px rgba(255, 255, 255, 0.2), 0 6px 0px #000;
+}
+
+/* ==========================================
+   SLIDER DE SONIDO
+   ================================---------- */
+.contenedor-slider {
+  width: 420px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 40px 30px;
+  border-radius: 12px;
+  border: 4px solid #1a1a1a;
+  height: 159px; /* Mantiene la misma altura visual que el bloque de teclas */
+}
+
+.slider-volumen {
+  width: 100%;
+  height: 14px;
+  -webkit-appearance: none;
+  background: #1a1a1a;
+  border: 3px solid #000;
+  border-radius: 6px;
+}
+
+.slider-volumen::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 34px;
+  height: 34px;
+  background: #fdfae7;
+  border: 3px solid #1a1a1a;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 0px #000;
+  transition: transform 0.1s ease;
+}
+
+.slider-volumen::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+/* ==========================================
+   BOTÓN VOLVER (Ubicado abajo a la izquierda del tablero)
+   ================================---------- */
+.boton-volver {
+  position: absolute;
+  bottom: 60px;
+  left: 80px;
+  width: 130px;
+  height: 110px;
+  background-color: #fdfae7;
+  color: #1a1a1a;
+  border: 4px solid #b83324;
+  outline: 4px solid #1a1a1a;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  box-shadow: inset -4px 4px 0px #c2bba3, 0 6px 0px #000;
+  transition: transform 0.1s ease, background-color 0.1s ease;
+}
+
+.boton-volver:hover {
+  background-color: #ffffff;
+  border-color: #f7ca40;
+  transform: scale(1.05);
+}
+
+.texto-volver {
+  font-size: 12px;
+}
+
+.icono-volver {
+  font-size: 26px;
+}

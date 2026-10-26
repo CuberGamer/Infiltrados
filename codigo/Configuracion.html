@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Infiltrados - Configuraciones</title>
+    <!-- Conectamos los estilos -->
+    <link rel="stylesheet" href="CSS/style.css"> <!-- O ajusta la ruta si está en CSS/style.css -->
+    <link rel="stylesheet" href="CSS/configuracion.css"> <!-- O ajusta la ruta si está en CSS/configuracion.css -->
+</head>
+<body>
+
+    <!-- Bloqueo vertical -->
+    <div class="bloqueo-vertical">
+        <div class="mensaje-giro">
+            <span>🔄</span>
+            <p>Por favor, gira tu dispositivo en posición horizontal para jugar.</p>
+        </div>
+    </div>
+
+    <div class="pantalla-completa">
+        
+        <!-- Tablero de madera central de configuraciones (ID necesario para el JS) -->
+        <div class="tablero-config" id="contenedor-juego">
+            
+            <h1 class="titulo-config">CONFIGURACIONES</h1>
+
+            <div class="contenido-config">
+                
+                <!-- Sección Izquierda: Controles -->
+                <div class="seccion-controles">
+                    <h2>CONTROLES</h2>
+                    
+                    <div class="mapeo-teclas">
+                        <div class="fila-tecla-arriba">
+                            <span class="tecla">W</span>
+                            <span class="tecla">X</span>
+                        </div>
+                        <div class="fila-teclas-abajo">
+                            <span class="tecla">A</span>
+                            <span class="tecla">S</span>
+                            <span class="tecla">D</span>
+                            <span class="tecla">F</span>
+                            <span class="tecla">C</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección Derecha: Sonido -->
+                <div class="seccion-sonido">
+                    <h2>SONIDO</h2>
+                    <div class="contenedor-slider">
+                        <input type="range" min="0" max="100" value="70" class="slider-volumen">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Botón Volver -->
+            <button class="boton-volver" id="boton-volver-menu">
+                <span class="texto-volver">VOLVER</span>
+                <span class="icono-volver">↪</span>
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ¡ESTO ES LO QUE FALTABA! Conectamos el JavaScript -->
+    <script src="JavaScript/configuracion.js" defer></script> 
+    <!-- (Nota: Cambia "configuracion.js" por la ruta exacta si lo tienes en una carpeta, ej: "JS/configuracion.js") -->
+
+</body>
+</html>

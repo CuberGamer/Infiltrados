@@ -1,0 +1,100 @@
+body {
+  background-image: none;
+  background-color: #000;
+}
+
+.pantalla-completa {
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.tablero-juego {
+  width: 1920px;
+  height: 1080px;
+  flex-shrink: 0;
+  transform-origin: center center;
+  position: absolute;
+  overflow: hidden;
+  border: 8px solid #1a1a1a;
+  outline: 6px solid #f7ca40;
+}
+
+.fondo-oscuro {
+  background-image: url('../../Recursos_graficos/Fondos/Fondo_inicio.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 0;
+}
+
+.caja-stats, .caja-stats-grande {
+  background-color: #8c5830;
+  border: 8px solid #000;
+  outline: 6px solid #f7ca40;
+  padding: 30px 60px;
+  text-align: left;
+}
+
+.caja-stats-grande {
+  margin-top: 100px;
+  text-align: center;
+  padding: 60px 120px;
+}
+
+.caja-stats p, .caja-stats-grande p {
+  font-size: 36px;
+  color: #fdfae7;
+  margin: 20px 0;
+  text-shadow: 4px 4px 0px #000;
+}
+
+.texto-gameover {
+  font-size: 160px;
+  color: #ff0000;
+  text-shadow: 8px 8px 0px #000;
+  margin: 0;
+}
+
+.texto-victoria {
+  font-size: 80px;
+  color: #f7ca40;
+  text-shadow: 6px 6px 0px #000;
+  margin-bottom: 50px;
+  margin-top: 0;
+}
+
+.botones-inferiores {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 100px;
+  box-sizing: border-box;
+  margin-bottom: 40px;
+}
+
+.botones-inferiores.centro {
+  justify-content: center;
+}
+
+.btn-arcade {
+  width: 300px;
+  height: 80px;
+  background-color: #fdfae7;
+  color: #000;
+  border: 6px solid #683324;
+  border-radius: 12px;
+  font-size: 30px;
+  font-family: 'Press Start 2P', monospace;
+  cursor: pointer;
+  box-shadow: 0 8px 0px #000;
+  transition: transform 0.1s;
+}
+
+.btn-arcade:active {
+  transform: translateY(8px);
+  box-shadow: 0 0px 0px #000;
+}

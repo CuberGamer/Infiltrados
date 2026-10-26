@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Infiltrados - Gestor de Partidas</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/partidas.css">
+</head>
+<body>
+
+    <!-- Bloqueo vertical para celulares -->
+    <div class="bloqueo-vertical">
+        <div class="mensaje-giro">
+            <span>🔄</span>
+            <p>Por favor, gira tu dispositivo en posición horizontal para jugar.</p>
+        </div>
+    </div>
+
+    <div class="pantalla-completa">
+        
+        <!-- Tablero central del gestor (1920x1080) -->
+        <div class="tablero-config" id="contenedor-juego">
+            
+            <h1 class="titulo-config">GESTOR DE PARTIDAS</h1>
+
+            <div class="contenido-gestor">
+                
+                <!-- Panel Izquierdo: Información de la partida seleccionada + Botones -->
+                <div class="columna-izquierda">
+                    <div class="caja-panel caja-info" id="panel-info-partida">
+                        <span class="texto-placeholder">SIN PARTIDA SELECCIONADA</span>
+                    </div>
+
+                    <!-- Botones de Acción -->
+                    <div class="botones-accion">
+                        <button class="btn-arcade" id="btn-jugar" disabled>JUGAR</button>
+                        <button class="btn-arcade" id="btn-nueva">NUEVA PARTIDA</button>
+                        <button class="btn-arcade btn-peligro" id="btn-eliminar" disabled>ELIMINAR</button>
+                    </div>
+                </div>
+
+                <!-- Panel Derecho: Lista de partidas guardadas -->
+                <div class="columna-derecha">
+                    <div class="caja-panel caja-lista" id="contenedor-lista-partidas">
+                        <div class="mensaje-vacio">
+                            NO HAY PARTIDAS.<br>CREA UNA NUEVA PARA EMPEZAR.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Botón Volver -->
+            <button class="boton-volver" id="boton-volver-menu">
+                <span class="texto-volver">VOLVER</span>
+                <span class="icono-volver">↪</span>
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Modal Retro para escribir el nombre de la partida -->
+    <div class="modal-fondo" id="modal-nueva-partida" style="display: none;">
+        <div class="modal-caja">
+            <h2>NUEVA PARTIDA</h2>
+            <p>Ingresa el nombre del agente o de la partida:</p>
+            <input type="text" id="input-nombre-partida" maxlength="15" placeholder="Ej. Agente_007">
+            <div class="modal-botones">
+                <button class="btn-arcade" id="btn-modal-crear">CREAR</button>
+                <button class="btn-arcade btn-peligro" id="btn-modal-cancelar">CANCELAR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script principal -->
+    <script src="JavaScript/partida.js" defer></script>
+
+</body>
+</html>
