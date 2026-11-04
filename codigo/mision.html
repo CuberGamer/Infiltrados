@@ -13,7 +13,7 @@
     <div class="bloqueo-vertical">
         <div class="mensaje-giro">
             <span>🔄</span>
-            <p>Por favor, gira tu dispositivo en posición horizontal para jugar.</p>
+            <p>Por favor, girá tu dispositivo a posición horizontal para jugar.</p>
         </div>
     </div>
 
@@ -22,11 +22,14 @@
         <!-- Tablero contenedor general (1920x1080) -->
         <div class="tablero-juego" id="contenedor-juego">
             
-            <!-- ESCENA DEL MUNDO (Fondo del pueblo) -->
-            <div class="escena-mundo" id="escena-mundo">
+<!-- ESCENA DEL MUNDO -->
+<div class="escena-mundo" id="escena-mundo">
 
-    <!-- MAPA GENERADO DESDE MapPrueba.json -->
+    <!-- MAPA -->
     <canvas id="mapa-juego" width="1920" height="1280"></canvas>
+
+    <!-- CONTENEDOR DE NPC ESTÁTICOS -->
+    <div id="contenedor-npcs"></div>
 
     <!-- JUGADOR -->
     <div class="personaje" id="jugador"></div>
@@ -34,15 +37,6 @@
     <!-- FLECHAS INTERACTIVAS -->
     <div class="flecha-ui flecha-npc" id="btn-flecha-npc"
         style="display: none;"></div>
-
-    <div class="flecha-ui flecha-abajo"
-        id="btn-abajo"></div>
-
-    <div class="flecha-ui flecha-izquierda"
-        id="btn-izquierda"></div>
-
-    <div class="flecha-ui flecha-derecha"
-        id="btn-derecha"></div>
 
 </div>
 
@@ -52,27 +46,51 @@
             <!-- ========================================== -->
             <!-- 🗺️ NUEVO: HUD DE MAPA (Esquina Superior Derecha) -->
             <!-- ========================================== -->
-            <div class="hud-mapa" id="btn-abrir-mapa"></div>
+            <button class="hud-mapa" id="btn-abrir-mapa" type="button" aria-label="Abrir mapa del pueblo">
+                <canvas id="mapa-vivo-mini" aria-hidden="true"></canvas>
+                <span class="mapa-mini-leyenda">MAPA</span>
+            </button>
+
+            <button class="boton-salir-juego" id="btn-salir-juego" type="button">
+                VOLVER AL MENÚ
+            </button>
 
             <!-- HUD: Barra de Sospecha (Esquina Inferior Izquierda) -->
-            <div class="hud-barra-sospecha">
+            <div class="hud-barra-sospecha" aria-label="Nivel de sospecha">
                 <div class="icono-agente">👤</div>
-                <div class="barra-progreso-fondo">
-                    <div class="barra-progreso-relleno" style="width: 25%;"></div>
+                <div class="sospecha-contenido">
+                    <div class="sospecha-encabezado"><span>SOSPECHA</span><strong id="texto-sospecha">0%</strong></div>
+                    <div class="barra-progreso-fondo" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Sospecha">
+                        <div class="barra-progreso-relleno" id="barra-sospecha"></div>
+                    </div>
+                    <small id="estado-sospecha">Pasá desapercibido</small>
                 </div>
             </div>
 
             <!-- HUD: Inventario (Esquina Inferior Derecha) -->
-            <div class="hud-inventario">
-                <div class="slot-item activo">🔑</div>
-                <div class="slot-item">🍓</div>
-            </div>
+            <section class="hud-inventario" id="hud-inventario" aria-label="Inventario">
+                <div class="inventario-encabezado">
+                    <span>INVENTARIO</span><strong id="inventario-contador">0/6</strong>
+                    <button id="btn-inventario-expandir" type="button" aria-label="Ampliar inventario">↗</button>
+                </div>
+                <div class="inventario-slots">
+                    <button class="slot-item" data-slot="0" type="button" aria-label="Espacio vacío 1"></button>
+                    <button class="slot-item" data-slot="1" type="button" aria-label="Espacio vacío 2"></button>
+                    <button class="slot-item" data-slot="2" type="button" aria-label="Espacio vacío 3"></button>
+                    <button class="slot-item" data-slot="3" type="button" aria-label="Espacio vacío 4"></button>
+                    <button class="slot-item" data-slot="4" type="button" aria-label="Espacio vacío 5"></button>
+                    <button class="slot-item" data-slot="5" type="button" aria-label="Espacio vacío 6"></button>
+                </div>
+                <div class="inventario-detalle" id="inventario-detalle"><span class="detalle-icono">🎒</span><span>Seleccioná un objeto para ver sus detalles.</span></div>
+                <button class="inventario-descartar" id="btn-descartar-objeto" type="button" disabled>DESCARTAR OBJETO</button>
+            </section>
 
         </div>
 
     </div>
 
     <!-- Script de movimiento -->
+    <script src="JavaScript/audio.js" defer></script>
     <script src="JavaScript/mision.js" defer></script>
 
     <!-- ========================================== -->
@@ -105,8 +123,9 @@
             
             <!-- Contenedor de la Imagen del Mapa -->
             <div class="contenido-mapa">
-                <img src="../../Recursos_graficos/UI/Mapa.png" alt="Mapa del Pueblo" class="img-mapa-real">
+                <canvas id="mapa-vivo-grande" aria-label="Mapa actual del pueblo con tu posición marcada"></canvas>
             </div>
+            <p class="mapa-leyenda-grande"><span></span> Tu ubicación actual · El punto se mueve mientras explorás</p>
         </div>
     </div>
 

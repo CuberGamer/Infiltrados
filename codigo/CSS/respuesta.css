@@ -98,3 +98,38 @@ body {
   transform: translateY(8px);
   box-shadow: 0 0px 0px #000;
 }
+/* RESPONSIVE: pantallas de victoria y derrota */
+@media (max-width: 1100px) {
+  .tablero-juego { transform: none !important; position: relative !important; left: auto !important; top: auto !important; width: 100%; height: 100%; }
+  .fondo-oscuro { padding: 5vh 0; }
+  .caja-stats, .caja-stats-grande { max-width: 88%; padding: 28px 38px; }
+  .caja-stats-grande { margin-top: 7vh; }
+  .caja-stats p, .caja-stats-grande p { font-size: clamp(15px, 2.2vw, 28px); }
+  .texto-gameover { font-size: clamp(48px, 9vw, 110px); }
+  .texto-victoria { font-size: clamp(38px, 6vw, 68px); margin-bottom: 28px; }
+  .botones-inferiores { padding: 0 6vw; gap: 22px; }
+  .btn-arcade { width: min(34vw, 280px); height: 68px; font-size: clamp(12px, 1.8vw, 22px); }
+}
+@media (max-width: 650px) {
+  body { width: 100%; height: 100dvh; overflow: hidden; }
+  .pantalla-completa { width: 100%; height: 100dvh; }
+  .tablero-juego { transform: none !important; position: relative !important; left: auto !important; top: auto !important; width: 100%; height: 100%; border-width: 4px; outline-width: 3px; }
+  .fondo-oscuro { padding: 8vh 14px 5vh; justify-content: space-between; }
+  .caja-stats, .caja-stats-grande { max-width: 100%; width: 100%; padding: 18px 12px; border-width: 5px; outline-width: 3px; }
+  .caja-stats-grande { margin-top: 4vh; }
+  .caja-stats p, .caja-stats-grande p { font-size: clamp(10px, 3vw, 14px); line-height: 1.7; margin: 10px 0; }
+  .texto-gameover { font-size: clamp(30px, 10vw, 58px); line-height: 1.4; text-align: center; text-shadow: 4px 4px #000; }
+  .texto-victoria { font-size: clamp(28px, 8vw, 48px); margin: 14px 0; text-align: center; text-shadow: 4px 4px #000; }
+  .botones-inferiores { flex-direction: column; align-items: stretch; padding: 0; gap: 14px; margin-bottom: 0; }
+  .botones-inferiores.centro { align-items: stretch; }
+  .btn-arcade { width: 100%; height: 54px; font-size: clamp(10px, 3vw, 13px); border-width: 4px; }
+}
+@media (max-height: 520px) and (orientation: landscape) {
+  .fondo-oscuro { padding: 12px 18px; }
+  .caja-stats-grande { margin-top: 8px; padding: 12px 24px; }
+  .texto-gameover { font-size: 42px; }
+  .texto-victoria { font-size: 34px; margin: 4px 0; }
+  .caja-stats p, .caja-stats-grande p { font-size: 11px; margin: 5px 0; }
+  .botones-inferiores { flex-direction: row; justify-content: center; gap: 14px; }
+  .btn-arcade { width: 220px; height: 42px; font-size: 10px; }
+}

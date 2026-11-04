@@ -98,3 +98,30 @@
   height: clamp(24px, 4vw, 48px);
   object-fit: contain;
 }
+/* Estados visuales consistentes para los botones del menú inicial */
+.boton-opcion-menu, .boton-creditos-informacion {
+  position: relative;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.boton-opcion-menu:focus-visible, .boton-creditos-informacion:focus-visible {
+  outline: 4px solid #f7ca40;
+  outline-offset: 5px;
+}
+.boton-opcion-menu:active, .boton-creditos-informacion:active {
+  transform: translateY(4px) scale(.99);
+  box-shadow: inset 3px 3px 0 #b8ad91, 0 1px 0 #000;
+}
+#boton-configuracion::before { content: "⚙"; margin-right: 12px; font-size: 1.15em; }
+
+/* Ajustes responsive del menú principal manteniendo la estética arcade */
+@media (max-width: 700px) {
+  .pantalla-completa { padding: 24px 22px; min-height: 100dvh; height: auto; }
+  .pantalla-inicio { min-height: calc(100dvh - 48px); gap: 24px; }
+  .encabezado-titulo { margin-top: 4px; gap: 10px; }
+  .titulo-principal { font-size: clamp(25px, 8vw, 42px); letter-spacing: 1px; }
+  .menu-opciones-principales { width: min(100%, 420px); margin: auto 0; gap: 13px; }
+  .boton-opcion-menu { min-height: 58px; height: auto; padding: 12px 10px; font-size: clamp(11px, 3.4vw, 16px); }
+  .contenedor-boton-creditos { position: relative; right: auto; bottom: auto; align-self: flex-end; margin-top: auto; }
+  .boton-creditos-informacion { width: 66px; height: 66px; }
+}

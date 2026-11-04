@@ -14,19 +14,27 @@
 
 <body>
 
+    <div class="bloqueo-vertical">
+        <div class="mensaje-giro">
+            <span>🔄</span>
+            <p>Girá tu dispositivo a posición horizontal para disfrutar la aventura.</p>
+        </div>
+    </div>
+
     <div class="pantalla-completa">
 
         <main class="tablero-tutorial" id="contenedor-juego">
 
+            <span class="sello-tutorial">MANUAL DEL AGENTE · 01</span>
             <h1 class="titulo-tutorial">ANTES DE COMENZAR</h1>
 
             <p class="subtitulo-tutorial">
-                APRENDE A MOVERTE POR EL PUEBLO
+                APRENDÉ A MOVERTE POR EL PUEBLO
             </p>
 
             <section class="panel-tutorial">
 
-                <div class="instruccion">
+                <div class="instruccion instruccion-movimiento">
 
                     <div class="teclas">
 
@@ -51,7 +59,7 @@
 
                 </div>
 
-                <div class="instruccion">
+                <div class="instruccion instruccion-exploracion">
 
                     <div class="icono-tutorial">🏠</div>
 
@@ -66,7 +74,7 @@
 
                 </div>
 
-                <div class="instruccion">
+                <div class="instruccion instruccion-misiones">
 
                     <div class="icono-tutorial">📜</div>
 
@@ -84,13 +92,13 @@
             </section>
 
             <p class="mensaje-final">
-                ¡PREPARATE, AGENTE! TU MISION ESTA POR COMENZAR.
+                ¡PREPARATE, AGENTE! TU MISIÓN ESTÁ POR COMENZAR.
             </p>
 
             <div class="botones-tutorial">
 
                 <button id="btn-volver">
-                    VOLVER AL MENU
+                    VOLVER AL MENÚ
                 </button>
 
                 <button id="btn-comenzar">
@@ -103,6 +111,7 @@
 
     </div>
 
+    <script src="JavaScript/audio.js" defer></script>
     <script src="JavaScript/tutorial.js"></script>
 
 </body>

@@ -138,6 +138,8 @@ body {
    ================================---------- */
 .contenedor-slider {
   width: 420px;
+  flex-direction: column;
+  gap: 14px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -211,4 +213,54 @@ body {
 
 .icono-volver {
   font-size: 26px;
+}
+
+.valor-volumen {
+  display: block;
+  margin-top: 18px;
+  color: #fdfae7;
+  font-size: 14px;
+  text-align: center;
+  text-shadow: 2px 2px 0 #000;
+}
+
+/* Rediseño de controles: movimientos y acciones separados */
+.tablero-config { width: min(1500px, 94vw); height: min(900px, 90vh); padding: clamp(24px, 4vh, 58px) clamp(24px, 5vw, 78px); }
+.titulo-config { font-size: clamp(28px, 3.2vw, 48px); margin: 0 0 clamp(22px, 4vh, 48px); }
+.configuracion-nueva { align-items: stretch; justify-content: center; gap: clamp(24px, 4vw, 60px); max-width: none; width: 100%; }
+.panel-controles { flex: 1 1 760px; min-width: 0; display:flex; flex-direction:column; gap:20px; }
+.panel-controles > h2, .panel-sonido h2 { color:#f7ca40; font-size:clamp(17px,1.7vw,25px); text-align:center; margin:0; text-shadow:3px 3px #24150d; }
+.grupos-controles { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.grupo-teclas { background:rgba(30,20,13,.58); border:3px solid #302016; border-radius:12px; padding:clamp(14px,2vw,24px); box-shadow:inset 0 0 0 2px rgba(247,202,64,.18); }
+.grupo-teclas h3 { color:#f7ca40; font-size:clamp(11px,1.05vw,15px); margin:0 0 18px; display:flex; align-items:center; gap:10px; }
+.icono-grupo { font-size:22px; }
+.control-fila { display:flex; align-items:center; justify-content:space-between; gap:10px; min-height:48px; border-bottom:1px solid rgba(253,250,231,.16); }
+.control-fila:last-child { border-bottom:0; }
+.control-nombre { color:#fdfae7; font-family:Arial,sans-serif; font-size:clamp(12px,1.1vw,16px); font-weight:700; }
+.teclas-dobles { display:flex; align-items:center; gap:8px; }
+.teclas-dobles small { color:#d8c9a5; font:11px Arial,sans-serif; }
+.grupo-teclas kbd { min-width:38px; height:36px; padding:0 8px; display:inline-flex; align-items:center; justify-content:center; background:linear-gradient(#fffdf0,#d9d0b7); border:2px solid #21170f; border-radius:6px; color:#24180f; font: bold 16px Arial,sans-serif; box-shadow:0 3px 0 #090706; }
+.grupo-teclas kbd.tecla-accion { min-width:48px; }
+.raton { color:#f7ca40; border:2px solid #f7ca40; border-radius:6px; padding:8px 10px; font:bold 10px Arial,sans-serif; letter-spacing:.5px; white-space:nowrap; }
+.nota-controles { color:#eadfc4; font:12px Arial,sans-serif; text-align:center; line-height:1.4; margin:0; }
+.panel-sonido { flex:0 0 min(300px,25%); align-items:stretch; justify-content:flex-start; gap:20px; }
+.contenedor-slider { width:100%; height:auto; min-height:220px; flex:1; padding:24px; }
+.sonido-icono { color:#f7ca40; font-size:48px; text-shadow:3px 3px #21170f; }
+.valor-volumen { font-size:16px; }
+.boton-volver { width:150px; height:68px; bottom:22px; left:28px; flex-direction:row; }
+.boton-volver .icono-volver { font-size:22px; }
+@media (max-width: 900px) {
+ .tablero-config { height:94vh; padding:20px 18px 85px; overflow:auto; }
+ .contenido-config { gap:16px; }
+ .grupos-controles { gap:10px; }
+ .grupo-teclas { padding:12px; }
+ .control-fila { min-height:42px; }
+ .panel-sonido { flex-basis:180px; }
+}
+@media (max-width: 650px) {
+ .contenido-config.configuracion-nueva { flex-direction:column; }
+ .grupos-controles { grid-template-columns:1fr; }
+ .panel-sonido { flex-basis:auto; }
+ .contenedor-slider { min-height:110px; }
+ .tablero-config { overflow-y:auto; }
 }

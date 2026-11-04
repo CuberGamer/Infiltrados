@@ -292,3 +292,35 @@ body {
 .icono-volver {
   font-size: 24px;
 }
+/* RESPONSIVE: gestor de partidas */
+@media (max-width: 1100px) {
+  .tablero-config { transform: none !important; width: min(96vw, 1100px); height: 94vh; padding: 30px 34px; overflow-y: auto; }
+  .titulo-config { font-size: clamp(24px, 3.4vw, 40px); margin-bottom: 24px; }
+  .contenido-gestor { gap: 24px; }
+  .columna-izquierda, .columna-derecha { min-width: 0; }
+  .caja-panel { height: clamp(300px, 48vh, 500px); padding: 20px; }
+  .slot-partida { font-size: clamp(12px, 1.5vw, 18px); gap: 12px; }
+  .boton-volver { left: 22px; bottom: 18px; width: 105px; height: 72px; flex-direction: row; }
+}
+@media (max-width: 700px) {
+  body { width: 100%; min-height: 100dvh; overflow: auto; }
+  .pantalla-completa { width: 100%; min-height: 100dvh; height: auto; padding: 14px; align-items: flex-start; }
+  .tablero-config { transform: none !important; position: relative; width: 100%; max-width: 100%; height: auto; min-height: calc(100dvh - 28px); padding: 22px 16px 100px; border-width: 5px; outline-width: 3px; }
+  .titulo-config { font-size: clamp(17px, 5vw, 26px); line-height: 1.55; letter-spacing: 1px; margin: 4px 0 20px; }
+  .contenido-gestor { flex-direction: column; gap: 18px; }
+  .columna-izquierda, .columna-derecha { width: 100%; gap: 14px; }
+  .caja-panel { height: auto; min-height: 180px; padding: 16px 12px; }
+  .caja-lista { max-height: 330px; min-height: 180px; }
+  .texto-placeholder, .mensaje-vacio { font-size: clamp(10px, 3vw, 14px); }
+  .slot-partida { padding: 13px 10px; font-size: 11px; flex-wrap: wrap; }
+  .botones-accion { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .btn-arcade { height: 54px; font-size: 12px; }
+  .boton-volver { left: 50%; transform: translateX(-50%); bottom: 16px; width: min(220px, 80%); height: 58px; flex-direction: row; }
+  .boton-volver:hover { transform: translateX(-50%) translateY(-2px); }
+  .modal-fondo { padding: 14px; }
+  .modal-caja { width: 100%; max-width: 440px; padding: 24px 16px; gap: 16px; border-width: 5px; outline-width: 3px; }
+  .modal-caja h2 { font-size: 18px; line-height: 1.5; }
+  .modal-caja p { font-size: 12px; line-height: 1.7; }
+  .modal-caja input { height: 50px; font-size: 13px; padding: 0 10px; }
+  .modal-botones { flex-direction: column; gap: 12px; }
+}

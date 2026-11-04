@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="CSS/pregunta.css">
 </head>
 <body>
+    <div class="bloqueo-vertical">
+        <div class="mensaje-giro">
+            <span>🔄</span>
+            <p>Girá tu dispositivo a posición horizontal para jugar.</p>
+        </div>
+    </div>
     <div class="pantalla-completa">
         <div class="tablero-juego" id="contenedor-juego">
             <div class="escena-mundo" style="background-image: url('../../Recursos_graficos/Fondos/Fondo_Pregunta.png');">
@@ -17,13 +23,19 @@
                 <div class="caja-encuesta">
                     <p class="texto-pregunta">ANTES DE CONFIARTE ESTA CARTA, NECESITO SABER ALGO.<br>¿CON QUÉ COLOR SE IDENTIFICA AL PARTIDO FEDERAL?</p>
                     <div class="contenedor-opciones">
-                        <button class="btn-opcion btn-rojo" onclick="responder(true)">EL COLOR ROJO PUNZÓ</button>
-                        <button class="btn-opcion btn-azul" onclick="responder(false)">EL COLOR AZUL</button>
+                        <button class="btn-opcion" onclick="responder(true)">
+    Opción correcta
+</button>
+
+<button class="btn-opcion" onclick="responder(false)">
+    Opción incorrecta
+</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="JavaScript/audio.js" defer></script>
     <script src="JavaScript/pregunta.js" defer></script>
 </body>
 </html>

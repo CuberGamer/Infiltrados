@@ -14,7 +14,7 @@
     <div class="bloqueo-vertical">
         <div class="mensaje-giro">
             <span>🔄</span>
-            <p>Por favor, gira tu dispositivo en posición horizontal para jugar.</p>
+            <p>Por favor, girá tu dispositivo a posición horizontal para jugar.</p>
         </div>
     </div>
 
@@ -25,35 +25,37 @@
             
             <h1 class="titulo-config">CONFIGURACIONES</h1>
 
-            <div class="contenido-config">
-                
-                <!-- Sección Izquierda: Controles -->
-                <div class="seccion-controles">
-                    <h2>CONTROLES</h2>
-                    
-                    <div class="mapeo-teclas">
-                        <div class="fila-tecla-arriba">
-                            <span class="tecla">W</span>
-                            <span class="tecla">X</span>
-                        </div>
-                        <div class="fila-teclas-abajo">
-                            <span class="tecla">A</span>
-                            <span class="tecla">S</span>
-                            <span class="tecla">D</span>
-                            <span class="tecla">F</span>
-                            <span class="tecla">C</span>
-                        </div>
+            <div class="contenido-config configuracion-nueva">
+                <section class="panel-controles">
+                    <h2>CONTROLES DEL JUGADOR</h2>
+                    <div class="grupos-controles">
+                        <article class="grupo-teclas">
+                            <h3><span class="icono-grupo">⌖</span> MOVIMIENTOS</h3>
+                            <div class="control-fila"><span class="control-nombre">Arriba</span><span class="teclas-dobles"><kbd>W</kbd><small>o</small><kbd>↑</kbd></span></div>
+                            <div class="control-fila"><span class="control-nombre">Izquierda</span><span class="teclas-dobles"><kbd>A</kbd><small>o</small><kbd>←</kbd></span></div>
+                            <div class="control-fila"><span class="control-nombre">Abajo</span><span class="teclas-dobles"><kbd>S</kbd><small>o</small><kbd>↓</kbd></span></div>
+                            <div class="control-fila"><span class="control-nombre">Derecha</span><span class="teclas-dobles"><kbd>D</kbd><small>o</small><kbd>→</kbd></span></div>
+                        </article>
+                        <article class="grupo-teclas">
+                            <h3><span class="icono-grupo">✦</span> ACCIONES</h3>
+                            <div class="control-fila"><span class="control-nombre">Interactuar / hablar</span><kbd class="tecla-accion">E</kbd></div>
+                            <div class="control-fila"><span class="control-nombre">Apuntar</span><span class="raton">MOUSE</span></div>
+                            <div class="control-fila"><span class="control-nombre">Disparar (misión de tiro)</span><span class="raton">CLIC IZQ.</span></div>
+                            <div class="control-fila"><span class="control-nombre">Recargar (misión de tiro)</span><kbd class="tecla-accion">R</kbd></div>
+                            <div class="control-fila"><span class="control-nombre">Seleccionar objeto</span><span class="raton">CLIC</span></div>
+                        </article>
                     </div>
-                </div>
-
-                <!-- Sección Derecha: Sonido -->
-                <div class="seccion-sonido">
+                    <p class="nota-controles">Las acciones con mouse solo están disponibles cuando la misión las necesita.</p>
+                </section>
+                <section class="seccion-sonido panel-sonido">
                     <h2>SONIDO</h2>
                     <div class="contenedor-slider">
-                        <input type="range" min="0" max="100" value="70" class="slider-volumen">
+                        <div class="sonido-icono">♫</div>
+                        <input type="range" id="slider-volumen" min="0" max="100" value="70" class="slider-volumen" aria-label="Volumen general" aria-valuemin="0" aria-valuemax="100">
+                        <output id="valor-volumen" for="slider-volumen" class="valor-volumen">70%</output>
                     </div>
-                </div>
-
+                    <p class="nota-controles">Ajustá el volumen general del juego.</p>
+                </section>
             </div>
 
             <!-- Botón Volver -->
@@ -67,6 +69,7 @@
     </div>
 
     <!-- ¡ESTO ES LO QUE FALTABA! Conectamos el JavaScript -->
+    <script src="JavaScript/audio.js" defer></script>
     <script src="JavaScript/configuracion.js" defer></script> 
     <!-- (Nota: Cambia "configuracion.js" por la ruta exacta si lo tienes en una carpeta, ej: "JS/configuracion.js") -->
 

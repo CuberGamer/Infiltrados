@@ -44,7 +44,7 @@ window.addEventListener("keydown", e => {
       } else if (npcInformante.cerca && pasoMision === 3) {
         entregarCartaInformante();
       }
-    } else if (estadoJuego === "DIALOGO") {
+    } else if (estadoJuego === "diálogo") {
       avanzarDialogo();
     }
   }
@@ -117,7 +117,7 @@ function hayColision(nx, ny) {
 
 /* --- SISTEMA DE DIÁLOGOS --- */
 function iniciarConversacionOficial() {
-  estadoJuego = "DIALOGO";
+  estadoJuego = "diálogo";
   indiceDialogo = 0;
   pasoMision = 2;
   actualizarTablaMisiones();
@@ -175,7 +175,7 @@ function responderTrivia(opcion) {
 }
 
 function entregarCartaInformante() {
-  estadoJuego = "DIALOGO";
+  estadoJuego = "diálogo";
   const box = document.getElementById("dialogue-box");
   const textoUI = document.getElementById("dialogue-text");
 
